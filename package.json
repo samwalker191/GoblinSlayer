@@ -1,0 +1,19 @@
+{
+  "name": "gridlock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samwalker191/GridLock.git"
+  },
+  "author": "Sam Walker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samwalker191/GridLock/issues"
+  },
+  "homepage": "https://github.com/samwalker191/GridLock#readme"
+}
