@@ -1,11 +1,12 @@
 const Constants = require('./util/constants');
+const LevelOne = require('./util/levels/level1');
 class Game {
-    constructor(ctx) {
-        this.ctx = ctx;
+    constructor(canvas) {
+        this.canvas = canvas;
     }
 
     drawLevel(level) {
-        level.drawLevel(this.ctx);
+        level.drawLevel(this.canvas);
     }
 }
 

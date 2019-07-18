@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // canvasEl.width = Game.DIM_X;
     // canvasEl.height = Game.DIM_Y;
-    const ctx = gameCanvas.getContext("2d");
-    const game = new Game(ctx);
-    game.drawLevel(LevelOne);
+    const game = new Game(gameCanvas);
+    const level1 = new LevelOne();
+    game.drawLevel(level1);
     // new GameView(game, ctx).start();
 });
