@@ -1,4 +1,4 @@
-const spriteSheet = require('../../assets/spritesheet.png');
+const spriteSheet = require('../../assets/images/spritesheet.png');
 const Constants = require('../constants');
 
 class LevelOne {
@@ -22,6 +22,7 @@ class LevelOne {
         ];
     }
     drawLevel(canvas) {
+        console.log(this.board[1][7]);
         let img = new Image();
         img.src = spriteSheet;
         let ctx = canvas.getContext('2d');
@@ -33,7 +34,7 @@ class LevelOne {
         ctx.imageSmoothingEnabled = false;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        window.onload = () => {
+        // window.onload = () => {
             for (let i = 0; i < this.rows; i++) {
                 for (let j = 0; j < this.cols; j++) {
                     switch (this.board[i][j]) {
@@ -246,7 +247,7 @@ class LevelOne {
                     }
                 }
             }
-        }
+        // }
     }
 }
 

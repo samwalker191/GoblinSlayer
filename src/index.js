@@ -4,12 +4,12 @@ const LevelOne = require("./util/levels/level1");
 
 console.log('its working');
 document.addEventListener("DOMContentLoaded", () => {
-    const gameCanvas = document.getElementById('game-canvas');
-
+    const boardCanvas = document.getElementById('board-canvas');
+    const animateCanvas = document.getElementById('animate-canvas');
     // canvasEl.width = Game.DIM_X;
     // canvasEl.height = Game.DIM_Y;
-    const game = new Game(gameCanvas);
-    const level1 = new LevelOne();
-    game.drawLevel(level1);
+    const game = new Game(boardCanvas, animateCanvas);
+    // const level1 = new LevelOne();
+    game.start();
     // new GameView(game, ctx).start();
 });
