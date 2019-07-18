@@ -4,10 +4,8 @@ class Game {
         this.ctx = ctx;
     }
 
-    drawBoard() {
-        this.ctx.clearRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
-        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
-        this.ctx.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
+    drawLevel(level) {
+        level.drawLevel(this.ctx);
     }
 }
 
