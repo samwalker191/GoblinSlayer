@@ -22,7 +22,6 @@ class LevelOne {
         ];
     }
     drawLevel(canvas) {
-        console.log(this.board[1][7]);
         let img = new Image();
         img.src = spriteSheet;
         let ctx = canvas.getContext('2d');

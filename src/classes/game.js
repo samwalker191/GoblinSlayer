@@ -10,7 +10,7 @@ class Game {
         this.animateCanvas = animateCanvas;
         this.levels = levels
         this.currentLevel = levels[0];
-        this.player = new Player({ x: 1, y: 7 }, this.currentLevel);
+        this.player = new Player({ col: 1, row: 2 }, this.currentLevel);
         this.img = new Image();
         this.img.src = spriteSheet;
         this.drawBoard(this.levels[0]);
@@ -32,27 +32,30 @@ class Game {
             console.log(e.keyCode);
             switch (e.keyCode) {
                 case 87: // W
+                case 38: // UpArrow
                     if (this.player.state === null) {
                         this.player.state = 'MOVING_UP';
-                        this.player.destination = { x: this.player.pos.x, y: this.player.pos.y - 1 };
+                        this.player.destination = { col: this.player.pos.col, row: this.player.pos.row - 1 };
                     }
                     break;
                 case 65: // A
+                case 37L // LeftArrow
                     if (this.player.state === null) {
                         this.player.state = 'MOVING_LEFT';
-                        this.player.destination = { x: this.player.pos.x - 1, y: this.player.pos.y };
+                        this.player.destination = { col: this.player.pos.col - 1, row: this.player.pos.row };
                     }
                     break;
                 case 83: // S
                     if (this.player.state === null) {
                         this.player.state = 'MOVING_DOWN';
-                        this.player.destination = { x: this.player.pos.x, y: this.player.pos.y + 1 };
+                        this.player.destination = { col: this.player.pos.col, row: this.player.pos.row + 1 };
                     }
                     break;
                 case 68: // D
+                case 39: // RightArrow
                     if (this.player.state === null) {
                         this.player.state = 'MOVING_RIGHT';
-                        this.player.destination = { x: this.player.pos.x + 1, y: this.player.pos.y };
+                        this.player.destination = { col: this.player.pos.col + 1, row: this.player.pos.row };
                     }
                     break;
                 default:

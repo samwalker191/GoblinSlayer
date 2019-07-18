@@ -6,8 +6,6 @@ console.log('its working');
 document.addEventListener("DOMContentLoaded", () => {
     const boardCanvas = document.getElementById('board-canvas');
     const animateCanvas = document.getElementById('animate-canvas');
-    // canvasEl.width = Game.DIM_X;
-    // canvasEl.height = Game.DIM_Y;
     const level1 = new LevelOne();
     let levels = [level1];
     const game = new Game(boardCanvas, animateCanvas, levels);

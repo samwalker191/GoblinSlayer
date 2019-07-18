@@ -7,7 +7,6 @@ class Player extends MovingObject {
     constructor(pos, currentlevel) {
         super(pos);
         this.size = { w: 64, h: 112 };
-        this.vel = { x: 0, y: 0 };
         this.state = null;
         this.destination = null;
         this.currentLevel = currentlevel;
@@ -18,50 +17,77 @@ class Player extends MovingObject {
     }
 
     validMove(destination) {
-        
-        return this.currentLevel.board[destination.x][destination.y] <= 2;
+        // console.log(`playerPos: ${this.pos}`);
+        // console.log(`Destination: ${destination}`);
+        // console.log(this.currentLevel.board[destination.col][destination.row])
+        console.log(this.pos);
+        return this.currentLevel.board[destination.row][destination.col] < 1;
     }
 
     move(timeDelta) {
         if (this.state === 'MOVING_UP') {
-            console.log(this.validMove(this.destination));
             if (this.validMove(this.destination)) {
-                if (Math.ceil(this.pos.y) === this.destination.y) {
-                    this.pos.y = this.destination.y;
+                if (Math.ceil(this.pos.row) === this.destination.row) {
+                    this.pos.row = this.destination.row;
                     this.state = null;
                     return;
                 } else {
-                    this.pos.y += -2 / timeDelta;
+                    this.pos.row += -2 / timeDelta;
                 }
             } else {
                 this.state = null;
             }
         } else if (this.state === 'MOVING_LEFT') {
-            if (Math.ceil(this.pos.x) === this.destination.x) {
-                this.pos.x = this.destination.x;
-                this.state = null;
-                return;
+            if (this.validMove(this.destination)) {
+                if (Math.ceil(this.pos.col) === this.destination.col) {
+                    this.pos.col = this.destination.col;
+                    this.state = null;
+                    return;
+                } else {
+                    this.pos.col += -2 / timeDelta;
+                }
             } else {
-                this.pos.x += -2 / timeDelta;
+                this.state = null;
             }
         } else if (this.state === 'MOVING_DOWN') {
-            if (Math.floor(this.pos.y) === this.destination.y) {
-                this.pos.y = this.destination.y;
-                this.state = null;
-                return;
+            if (this.validMove(this.destination)) {
+                if (Math.floor(this.pos.row) === this.destination.row) {
+                    this.pos.row = this.destination.row;
+                    this.state = null;
+                    return;
+                } else {
+                    this.pos.row += 2 / timeDelta;
+                }
             } else {
-                this.pos.y += 2 / timeDelta;
+                this.state = null;
             }
         } else if (this.state === 'MOVING_RIGHT') {
-            if (Math.floor(this.pos.x) === this.destination.x) {
-                this.pos.x = this.destination.x;
-                this.state = null;
-                return;
+            if (this.validMove(this.destination)) {
+                if (Math.floor(this.pos.col) === this.destination.col) {
+                    this.pos.col = this.destination.col;
+                    this.state = null;
+                    return;
+                } else {
+                    this.pos.col += 2 / timeDelta;
+                }
             } else {
-                this.pos.x += 2 / timeDelta;
+                this.state = null;
             }
         }
     }
+
+    sprite(options) {
+        var that = {};
+
+        that.context = options.context;
+        that.width = options.width;
+        that.height = options.height;
+        that.image = options.image;
+    }
+
+    updateDraw(
+
+    )
 
     drawPlayer(canvas, level) {
         let ctx1 = canvas.getContext('2d');
@@ -73,11 +99,11 @@ class Player extends MovingObject {
         ctx1.webkitImageSmoothingEnabled = false;
         ctx1.msImageSmoothingEnabled = false;
         ctx1.imageSmoothingEnabled = false;
-        ctx1.clearRect(this.pos.x, this.pos.y, this.size.w, this.size.h);
+        ctx1.clearRect(this.pos.col, this.pos.row, this.size.w, this.size.h);
         ctx1.drawImage(
             img, 128, 68, 16, 28,
-            this.pos.x * Constants.TILE_SIZE,
-            this.pos.y * Constants.TILE_SIZE,
+            this.pos.col * Constants.TILE_SIZE,
+            this.pos.row * Constants.TILE_SIZE - 64,
             this.size.w,
             this.size.h
         )
