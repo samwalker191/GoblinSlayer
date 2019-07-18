@@ -1,6 +1,6 @@
 const Game = require("./classes/game");
 const LevelOne = require("./util/levels/level1");
-// const GameView = require("./game_view");
+const GameView = require("./classes/game_view");
 
 console.log('its working');
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // canvasEl.width = Game.DIM_X;
     // canvasEl.height = Game.DIM_Y;
     const game = new Game(boardCanvas, animateCanvas);
-    // const level1 = new LevelOne();
-    game.start();
+    const level1 = new LevelOne();
+    let levels = { level1: level1 }
+    const gameView = new GameView(game, levels)
+    gameView.start();
     // new GameView(game, ctx).start();
 });

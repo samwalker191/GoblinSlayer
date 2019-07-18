@@ -12,28 +12,13 @@ class Game {
         this.player = new Player({ x: 1, y: 7 });
         this.img = new Image();
         this.img.src = spriteSheet;
-        this.drawBoard();
-    }
+    }    
 
-    start() {
-        console.log('starting game');
-        this.lastTime = 0;
-        requestAnimationFrame(this.animate.bind(this));
-    }
-
-    animate(time) {
-        const timeDelta = time - this.lastTime;
-
-        this.drawEntities()
-        this.lastTime = time;
-        requestAnimationFrame(this.animate.bind(this));
-    }
-
-    drawBoard() {
+    drawBoard(level) {
         // let img = new Image();
         // img.src = spriteSheet;
         window.onload = () => {
-            this.level1.drawLevel(this.boardCanvas);
+            level.drawLevel(this.boardCanvas);
         }
     }
 
