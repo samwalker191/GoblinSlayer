@@ -16,6 +16,10 @@ class Player extends MovingObject {
 
     }
 
+    validMove() {
+
+    }
+
     move(inputs, timeDelta) {
         if (this.state === 'MOVING_UP') {
             if (Math.ceil(this.pos.y) === this.destination.y) {
