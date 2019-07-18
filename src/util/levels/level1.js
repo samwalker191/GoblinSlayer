@@ -1,10 +1,11 @@
 const spriteSheet = require('../../assets/spritesheet.png');
+const Constants = require('../constants');
 
 class LevelOne {
     constructor() {
         this.rows = 11;
         this.cols = 11;
-        this.tileSize = 64;
+        this.tileSize = Constants.TILE_SIZE;
 
         this.board = [
             [7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 8],
@@ -30,7 +31,7 @@ class LevelOne {
         ctx.webkitImageSmoothingEnabled = false;
         ctx.msImageSmoothingEnabled = false;
         ctx.imageSmoothingEnabled = false;
-        ctx.clearRect(4, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         window.onload = () => {
             for (let i = 0; i < this.rows; i++) {

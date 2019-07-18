@@ -1,4 +1,4 @@
-const Game = require("./game");
+const Game = require("./classes/game");
 const LevelOne = require("./util/levels/level1");
 // const GameView = require("./game_view");
 
