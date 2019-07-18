@@ -4,30 +4,37 @@ const spriteSheet = require('../assets/images/spritesheet.png');
 const Constants = require('../util/constants');
 
 class Player extends MovingObject {
-    constructor(pos) {
+    constructor(pos, currentlevel) {
         super(pos);
         this.size = { w: 64, h: 112 };
         this.vel = { x: 0, y: 0 };
         this.state = null;
         this.destination = null;
+        this.currentLevel = currentlevel;
     }
 
     updatePos() {
 
     }
 
-    validMove() {
-
+    validMove(destination) {
+        
+        return this.currentLevel.board[destination.x][destination.y] <= 2;
     }
 
-    move(inputs, timeDelta) {
+    move(timeDelta) {
         if (this.state === 'MOVING_UP') {
-            if (Math.ceil(this.pos.y) === this.destination.y) {
-                this.pos.y = this.destination.y;
-                this.state = null;
-                return;
+            console.log(this.validMove(this.destination));
+            if (this.validMove(this.destination)) {
+                if (Math.ceil(this.pos.y) === this.destination.y) {
+                    this.pos.y = this.destination.y;
+                    this.state = null;
+                    return;
+                } else {
+                    this.pos.y += -2 / timeDelta;
+                }
             } else {
-                this.pos.y += -2 / timeDelta;
+                this.state = null;
             }
         } else if (this.state === 'MOVING_LEFT') {
             if (Math.ceil(this.pos.x) === this.destination.x) {

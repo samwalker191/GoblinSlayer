@@ -1,7 +1,6 @@
 class GameView {
     constructor(game) {
         this.game = game;
-        this.player = this.game.player;
     }
 
     start() {
@@ -15,7 +14,7 @@ class GameView {
         // console.log('running')
         const timeDelta = time - this.lastTime;
 
-        this.game.step(this.inputs, timeDelta);
+        this.game.step(timeDelta);
         this.lastTime = time;
         requestAnimationFrame(this.animate.bind(this));
     }

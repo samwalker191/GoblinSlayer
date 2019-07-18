@@ -9,7 +9,8 @@ class Game {
         this.boardCanvas = boardCanvas;
         this.animateCanvas = animateCanvas;
         this.levels = levels
-        this.player = new Player({ x: 1, y: 7 });
+        this.currentLevel = levels[0];
+        this.player = new Player({ x: 1, y: 7 }, this.currentLevel);
         this.img = new Image();
         this.img.src = spriteSheet;
         this.drawBoard(this.levels[0]);
@@ -19,9 +20,9 @@ class Game {
         return [].concat(this.player);
     }
 
-    step(inputs, timeDelta) {
+    step(timeDelta) {
         this.allObjects().forEach(obj => {
-            obj.move(inputs, timeDelta);
+            obj.move(timeDelta);
         })
         this.drawEntities();
     }
