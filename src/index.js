@@ -8,10 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const animateCanvas = document.getElementById('animate-canvas');
     // canvasEl.width = Game.DIM_X;
     // canvasEl.height = Game.DIM_Y;
-    const game = new Game(boardCanvas, animateCanvas);
     const level1 = new LevelOne();
-    let levels = { level1: level1 }
-    const gameView = new GameView(game, levels)
+    let levels = [level1];
+    const game = new Game(boardCanvas, animateCanvas, levels);
+    const gameView = new GameView(game)
     gameView.start();
     // new GameView(game, ctx).start();
 });

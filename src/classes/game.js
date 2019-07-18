@@ -5,13 +5,14 @@ const spriteSheet = require('../assets/images/spritesheet.png');
 
 const FPS = 60;
 class Game {
-    constructor(boardCanvas, animateCanvas) {
+    constructor(boardCanvas, animateCanvas, levels) {
         this.boardCanvas = boardCanvas;
         this.animateCanvas = animateCanvas;
-        this.level1 = new LevelOne();
+        this.levels = levels
         this.player = new Player({ x: 1, y: 7 });
         this.img = new Image();
         this.img.src = spriteSheet;
+        this.drawBoard(this.levels[0]);
     }    
 
     allObjects() {
@@ -70,7 +71,7 @@ class Game {
     drawEntities() {
         let img = new Image();
         img.src = spriteSheet;
-        this.player.drawPlayer(this.animateCanvas, this.level1);
+        this.player.drawPlayer(this.animateCanvas, this.levels[0]);
     }
 }
 

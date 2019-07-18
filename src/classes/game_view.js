@@ -1,13 +1,8 @@
 class GameView {
-    constructor(game, levels) {
+    constructor(game) {
         this.game = game;
         this.player = this.game.player;
-        this.levels = levels;
-        this.game.drawBoard(this.levels.level1);
-        this.inputs = { w: false, a: false, s: false, d: false}
     }
-
-    
 
     start() {
         console.log('starting game');
