@@ -7,6 +7,49 @@ class Player extends MovingObject {
     constructor(pos) {
         super(pos);
         this.size = { w: 64, h: 112 };
+        this.vel = { x: 0, y: 0 };
+        this.state = null;
+        this.destination = null;
+    }
+
+    updatePos() {
+
+    }
+
+    move(inputs, timeDelta) {
+        if (this.state === 'MOVING_UP') {
+            if (Math.ceil(this.pos.y) === this.destination.y) {
+                this.pos.y = this.destination.y;
+                this.state = null;
+                return;
+            } else {
+                this.pos.y += -2 / timeDelta;
+            }
+        } else if (this.state === 'MOVING_LEFT') {
+            if (Math.ceil(this.pos.x) === this.destination.x) {
+                this.pos.x = this.destination.x;
+                this.state = null;
+                return;
+            } else {
+                this.pos.x += -2 / timeDelta;
+            }
+        } else if (this.state === 'MOVING_DOWN') {
+            if (Math.floor(this.pos.y) === this.destination.y) {
+                this.pos.y = this.destination.y;
+                this.state = null;
+                return;
+            } else {
+                this.pos.y += 2 / timeDelta;
+            }
+        } else if (this.state === 'MOVING_RIGHT') {
+            if (Math.floor(this.pos.x) === this.destination.x) {
+                this.pos.x = this.destination.x;
+                this.state = null;
+                return;
+            } else {
+                this.pos.x += 2 / timeDelta;
+            }
+        }
     }
 
     drawPlayer(canvas, level) {

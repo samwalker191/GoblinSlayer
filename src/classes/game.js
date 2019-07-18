@@ -14,6 +14,17 @@ class Game {
         this.img.src = spriteSheet;
     }    
 
+    allObjects() {
+        return [].concat(this.player);
+    }
+
+    step(inputs, timeDelta) {
+        this.allObjects().forEach(obj => {
+            obj.move(inputs, timeDelta);
+        })
+        this.drawEntities();
+    }
+
     drawBoard(level) {
         // let img = new Image();
         // img.src = spriteSheet;
@@ -25,9 +36,7 @@ class Game {
     drawEntities() {
         let img = new Image();
         img.src = spriteSheet;
-        // window.onload = () => {
-            this.player.drawPlayer(this.animateCanvas, this.level1);
-        // }
+        this.player.drawPlayer(this.animateCanvas, this.level1);
     }
 }
 
