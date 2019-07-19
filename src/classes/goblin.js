@@ -20,6 +20,10 @@ class Goblin extends Entity {
         });
     }
 
+    move(timeDelta) {
+        
+    }
+
     draw(level) {
         this.canvas.width = level.tileSize * level.cols;
         this.canvas.height = level.tileSize * level.rows;

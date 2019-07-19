@@ -33,6 +33,7 @@ class Sprite {
         this.ctx.msImageSmoothingEnabled = false;
         this.ctx.imageSmoothingEnabled = false;
         this.ctx.clearRect(col, row, width, height)
+        this.ctx.save();
         this.ctx.drawImage(
             this.img,
             (this.frameIndex * 16) + sheetPosX,
@@ -44,6 +45,7 @@ class Sprite {
             width,
             height
         );
+        this.ctx.restore();
     }
 }
 

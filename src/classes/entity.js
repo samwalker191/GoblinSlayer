@@ -13,9 +13,6 @@ class Entity {
     }
 
     validMove(destination) {
-        // console.log(`playerPos: ${this.pos}`);
-        // console.log(`Destination: ${destination}`);
-        // console.log(this.currentLevel.board[destination.col][destination.row])
         return this.currentLevel.board[destination.row][destination.col] < 1;
     }
 }

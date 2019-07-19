@@ -13,7 +13,7 @@ class Game {
         this.levels = levels
         this.currentLevel = levels[0];
         this.player = new Player({ col: 1, row: 2 }, this.currentLevel, this.animateCanvas);
-        this.goblin = new Goblin({ col: 5, row: 5}, this.currentLevel, this.animateCanvas);
+        this.goblin = new Goblin({ col: 2, row: 2 }, this.currentLevel, this.animateCanvas);
         this.img = new Image();
         this.img.src = spriteSheet;
         this.drawBoard(this.levels[0]);
@@ -27,7 +27,9 @@ class Game {
         this.allObjects().forEach(obj => {
             obj.move(timeDelta);
         })
+        this.aniCtx.save();
         this.drawEntities();
+        this.aniCtx.restore();
     }
 
     bindKeyListeners() {
@@ -76,10 +78,16 @@ class Game {
     }
 
     drawEntities() {
-        let img = new Image();
-        img.src = spriteSheet;
-        this.player.drawPlayer(this.levels[0]);
-        // this.goblin.draw(this.levels[0]);
+        this.aniCtx.clearRect(0,0, 800, 800);
+
+        this.aniCtx.save();
+        this.player.draw(this.levels[0]);
+        this.aniCtx.restore();
+
+        this.aniCtx.save();
+        this.goblin.draw(this.levels[0]);
+        this.aniCtx.restore();
+
     }
 }
 

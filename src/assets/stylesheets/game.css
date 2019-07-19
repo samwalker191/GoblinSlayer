@@ -13,3 +13,11 @@ canvas {
     top: 10%;
     left: 15%;
 }
+
+#board-canvas {
+    z-index: 1;
+}
+
+#animate-canvas {
+    z-index: 2;
+}

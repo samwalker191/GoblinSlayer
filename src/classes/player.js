@@ -69,7 +69,7 @@ class Player extends Entity {
         }
     }
 
-    drawPlayer(level) {
+    draw(level) {
         
         this.canvas.width = level.tileSize * level.cols;
         this.canvas.height = level.tileSize * level.rows;
