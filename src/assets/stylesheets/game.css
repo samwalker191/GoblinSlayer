@@ -1,5 +1,11 @@
+.game-container {
+    width: 50%;
+    margin: 100px auto;
+    position: relative;
+}
+
 canvas {
     position: absolute;
-    top: 100px;
-    left: 500px;
+    top: 10%;
+    left: 15%;
 }

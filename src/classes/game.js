@@ -45,6 +45,7 @@ class Game {
                     }
                     break;
                 case 83: // S
+                case 40:
                     if (this.player.state === 'IDLE') {
                         this.player.state = 'MOVING_DOWN';
                         this.player.destination = { col: this.player.pos.col, row: this.player.pos.row + 1 };
