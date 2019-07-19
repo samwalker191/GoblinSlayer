@@ -89,8 +89,8 @@ class Goblin extends Entity {
 
     draw(level) {
         
-        this.canvas.width = level.tileSize * level.cols;
-        this.canvas.height = level.tileSize * level.rows;
+        // this.canvas.width = level.tileSize * level.cols;
+        // this.canvas.height = level.tileSize * level.rows;
 
         this.goblinSprite.update();
         if (this.state === "IDLE") {
