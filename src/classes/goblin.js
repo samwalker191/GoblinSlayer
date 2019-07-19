@@ -85,59 +85,6 @@ class Goblin extends Entity {
                     this.pos.col += 2 / timeDelta;
                 }
         }
-
-        // if (this.state === 'IDLE') {
-        //     this.destination = findPath(
-        //         this.currentLevel.board, 
-        //         this.pos, 
-        //         { col: Math.round(this.playerPos.col), row: Math.round(this.playerPos.row) }
-        //     )[1];
-        // }
-        // if (this.state === 'MOVING') {
-            
-        //     if (this.destination.row === Math.ceil(this.pos.row) - 1) { // MOVING UP
-        //         debugger
-        //         if (Math.ceil(this.pos.row) === this.destination.row) {
-        //             debugger
-        //             this.pos.row = this.destination.row;
-        //             this.state = 'IDLE';
-                    
-        //             return;
-        //         } else {
-        //             this.pos.row += -2 / timeDelta;
-        //         }
-        //     }
-
-        //     if (this.destination.col === this.pos.col - 1) { // MOVING LEFT
-        //         if (Math.ceil(this.pos.col) === this.destination.col) {
-        //             this.pos.col = this.destination.col;
-        //             this.state = 'IDLE';
-        //             return;
-        //         } else {
-        //             this.pos.col += -2 / timeDelta;
-        //         }
-        //     }
-
-        //     if (this.destination.row === this.pos.row + 1) { // MOVING DOWN
-        //         if (Math.floor(this.pos.row) === this.destination.row) {
-        //             this.pos.row = this.destination.row;
-        //             this.state = 'IDLE';
-        //             return;
-        //         } else {
-        //             this.pos.row += 2 / timeDelta;
-        //         }
-        //     }
-
-        //     if (this.destination.col === this.pos.col + 1) { // MOVING RIGHT
-        //         if (Math.floor(this.pos.col) === this.destination.col) {
-        //             this.pos.col = this.destination.col;
-        //             this.state = 'IDLE';
-        //             return;
-        //         } else {
-        //             this.pos.col += 2 / timeDelta;
-        //         }
-        //     }
-        // }     
     }
 
     draw(level) {
