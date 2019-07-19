@@ -3,8 +3,8 @@ const Constants = require('./constants');
 class Sprite {
     constructor(options) {
         this.ctx = options.ctx;
-        this.canvasWidth = options.canvasWidth;
-        this.canvasHeight = options.canvasHeight;
+        // this.canvasWidth = options.canvasWidth;
+        // this.canvasHeight = options.canvasHeight;
         this.img = options.img;
         this.frameIndex = 0;
         this.tickCount = 0;
@@ -27,20 +27,20 @@ class Sprite {
         
     }
 
-    render(col, row, width, height, sheetPosX, sheetPosY) {
+    render(col, row, width, height, sheetPosX, sheetPosY, spriteSizeW, spriteSizeH, pixelOffSet) {
         this.ctx.mozImageSmoothingEnabled = false;
         this.ctx.webkitImageSmoothingEnabled = false;
         this.ctx.msImageSmoothingEnabled = false;
         this.ctx.imageSmoothingEnabled = false;
-        // this.ctx.clearRect(col, row, width, height)
+        this.ctx.clearRect(col, row, width, height)
         this.ctx.drawImage(
             this.img,
             (this.frameIndex * 16) + sheetPosX,
             sheetPosY,
-            16,
-            28,
+            spriteSizeW,
+            spriteSizeH,
             col * Constants.TILE_SIZE,
-            row * Constants.TILE_SIZE - 64,
+            row * Constants.TILE_SIZE - pixelOffSet,
             width,
             height
         );

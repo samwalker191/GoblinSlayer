@@ -14,7 +14,7 @@ class Player extends Entity {
             ticksPerFrame: 5,
             numberOfFrames: 4,
             loop: true
-        })
+        });
     }
 
     move(timeDelta) {
@@ -70,6 +70,7 @@ class Player extends Entity {
     }
 
     drawPlayer(level) {
+        
         this.canvas.width = level.tileSize * level.cols;
         this.canvas.height = level.tileSize * level.rows;
         
@@ -81,16 +82,22 @@ class Player extends Entity {
                 this.size.w,
                 this.size.h,
                 128,
-                68
+                68,
+                16,
+                28,
+                64
             );
-        } else {
+        } else if (this.state.includes('MOVING')) {
             this.playerSprite.render(
                 this.pos.col,
                 this.pos.row,
                 this.size.w,
                 this.size.h,
                 192,
-                68
+                68,
+                16,
+                28,
+                64
             )
         }
         // ctx1.drawImage(
@@ -116,7 +123,7 @@ class Player extends Entity {
     //     ctx1.webkitImageSmoothingEnabled = false;
     //     ctx1.msImageSmoothingEnabled = false;
     //     ctx1.imageSmoothingEnabled = false;
-    //     ctx1.clearRect(this.pos.col, this.pos.row, this.size.w, this.size.h);
+        // ctx1.clearRect(this.pos.col, this.pos.row, this.size.w, this.size.h);
     //     ctx1.drawImage(
     //         img, 128, 68, 16, 28,
     //         this.pos.col * Constants.TILE_SIZE,

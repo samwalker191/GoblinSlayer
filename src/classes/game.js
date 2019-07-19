@@ -1,6 +1,7 @@
 const Constants = require('../util/constants');
 const LevelOne = require('../util/levels/level1');
 const Player = require('./player');
+const Goblin = require('./goblin');
 const spriteSheet = require('../assets/images/spritesheet.png');
 
 const FPS = 60;
@@ -8,9 +9,11 @@ class Game {
     constructor(boardCanvas, animateCanvas, levels) {
         this.boardCanvas = boardCanvas;
         this.animateCanvas = animateCanvas;
+        this.aniCtx = this.animateCanvas.getContext('2d');
         this.levels = levels
         this.currentLevel = levels[0];
         this.player = new Player({ col: 1, row: 2 }, this.currentLevel, this.animateCanvas);
+        this.goblin = new Goblin({ col: 5, row: 5}, this.currentLevel, this.animateCanvas);
         this.img = new Image();
         this.img.src = spriteSheet;
         this.drawBoard(this.levels[0]);
@@ -76,6 +79,7 @@ class Game {
         let img = new Image();
         img.src = spriteSheet;
         this.player.drawPlayer(this.levels[0]);
+        // this.goblin.draw(this.levels[0]);
     }
 }
 

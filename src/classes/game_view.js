@@ -12,7 +12,6 @@ class GameView {
 
     animate(time) {
         const timeDelta = time - this.lastTime;
-
         this.game.step(timeDelta);
         this.lastTime = time;
         requestAnimationFrame(this.animate.bind(this));
