@@ -22,54 +22,119 @@ class Goblin extends Entity {
         });
     }
 
-
-    move(timeDelta) {
-        let destination;
-        // if (this.state === 'IDLE') {
-            destination = findPath(
-                this.currentLevel.board, 
-                this.pos, 
+    setMoveDirection() {
+        if (this.state === 'IDLE') {
+            this.destination = findPath(
+                this.currentLevel.board,
+                this.pos,
                 { col: Math.round(this.playerPos.col), row: Math.round(this.playerPos.row) }
             )[1];
-        // } 
-        if (this.state === 'MOVING') {
+        } else if (this.state === 'MOVING') {
+            if (this.destination.row === Math.ceil(this.pos.row) - 1) {
+                this.state = 'MOVING_UP';
+            } else if (this.destination.col === this.pos.col - 1) {
+                this.state = 'MOVING_LEFT';
+            } else if (this.destination.row === this.pos.row + 1) {
+                this.state = "MOVING_DOWN";
+            } else if (this.destination.col === this.pos.col + 1) {
+                this.state = "MOVING_RIGHT";
+            }
+        }
+    }
 
-            if (destination.row === this.pos.row - 1) { // MOVING UP
-                while (Math.ceil(this.pos.row) !== destination.row) {
+
+    move(timeDelta) {
+        this.setMoveDirection();
+        if (this.state === 'MOVING_UP') {
+            
+                if (Math.ceil(this.pos.row) === this.destination.row) {
+                    this.pos.row = this.destination.row;
+                    this.state = 'IDLE';
+                    return;
+                } else {
                     this.pos.row += -2 / timeDelta;
                 }
-                this.pos.row = destination.row;
-                this.state = 'IDLE';
-                return;
-            }
-
-            if (destination.col === this.pos.col - 1) { // MOVING LEFT
-                while (Math.ceil(this.pos.col) !== destination.col) {
+        } else if (this.state === 'MOVING_LEFT') {
+            
+                if (Math.ceil(this.pos.col) === this.destination.col) {
+                    this.pos.col = this.destination.col;
+                    this.state = 'IDLE';
+                    return;
+                } else {
                     this.pos.col += -2 / timeDelta;
                 }
-                this.pos.col = destination.col;
-                this.state = 'IDLE';
-                return;
-            }
-
-            if (destination.row === this.pos.row + 1) { // MOVING DOWN
-                while (Math.floor(this.pos.row) !== destination.row) {
+        } else if (this.state === 'MOVING_DOWN') {
+            
+                if (Math.floor(this.pos.row) === this.destination.row) {
+                    this.pos.row = this.destination.row;
+                    this.state = 'IDLE';
+                    return;
+                } else {
                     this.pos.row += 2 / timeDelta;
                 }
-                this.pos.row = destination.row;
-                this.state = 'IDLE';
-                return;
-            }
-
-            if (destination.col === this.pos.col + 1) { // MOVING RIGHT
-                while (Math.ceil(this.pos.col) !== destination.col) {
+        } else if (this.state === 'MOVING_RIGHT') {
+            
+                if (Math.floor(this.pos.col) === this.destination.col) {
+                    this.pos.col = this.destination.col;
+                    this.state = 'IDLE';
+                    return;
+                } else {
                     this.pos.col += 2 / timeDelta;
                 }
-                this.pos.col = destination.col;
-                this.state = 'IDLE';
-                return;
-            }
-        }     
+        }
+
+        // if (this.state === 'IDLE') {
+        //     this.destination = findPath(
+        //         this.currentLevel.board, 
+        //         this.pos, 
+        //         { col: Math.round(this.playerPos.col), row: Math.round(this.playerPos.row) }
+        //     )[1];
+        // }
+        // if (this.state === 'MOVING') {
+            
+        //     if (this.destination.row === Math.ceil(this.pos.row) - 1) { // MOVING UP
+        //         debugger
+        //         if (Math.ceil(this.pos.row) === this.destination.row) {
+        //             debugger
+        //             this.pos.row = this.destination.row;
+        //             this.state = 'IDLE';
+                    
+        //             return;
+        //         } else {
+        //             this.pos.row += -2 / timeDelta;
+        //         }
+        //     }
+
+        //     if (this.destination.col === this.pos.col - 1) { // MOVING LEFT
+        //         if (Math.ceil(this.pos.col) === this.destination.col) {
+        //             this.pos.col = this.destination.col;
+        //             this.state = 'IDLE';
+        //             return;
+        //         } else {
+        //             this.pos.col += -2 / timeDelta;
+        //         }
+        //     }
+
+        //     if (this.destination.row === this.pos.row + 1) { // MOVING DOWN
+        //         if (Math.floor(this.pos.row) === this.destination.row) {
+        //             this.pos.row = this.destination.row;
+        //             this.state = 'IDLE';
+        //             return;
+        //         } else {
+        //             this.pos.row += 2 / timeDelta;
+        //         }
+        //     }
+
+        //     if (this.destination.col === this.pos.col + 1) { // MOVING RIGHT
+        //         if (Math.floor(this.pos.col) === this.destination.col) {
+        //             this.pos.col = this.destination.col;
+        //             this.state = 'IDLE';
+        //             return;
+        //         } else {
+        //             this.pos.col += 2 / timeDelta;
+        //         }
+        //     }
+        // }     
     }
 
     draw(level) {

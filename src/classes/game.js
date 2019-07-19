@@ -37,34 +37,34 @@ class Game {
             switch (e.keyCode) {
                 case 87: // W
                 case 38: // UpArrow
-                    if (this.player.state === 'IDLE') {
+                    if (this.player.state === 'IDLE' && this.goblin.state === 'IDLE') {
                         this.player.state = 'MOVING_UP';
-                        this.goblin.state = 'MOVING'
                         this.player.destination = { col: this.player.pos.col, row: this.player.pos.row - 1 };
+                        this.goblin.state = 'MOVING';
                     }
                     break;
                 case 65: // A
                 case 37: // LeftArrow
-                    if (this.player.state === 'IDLE') {
+                    if (this.player.state === 'IDLE' && this.goblin.state === 'IDLE') {
                         this.player.state = 'MOVING_LEFT';
-                        this.goblin.state = 'MOVING'
-                        this.player.destination = { col: this.player.pos.col - 1, row: this.player.pos.row };
+                        this.player.destination = { col: this.player.pos.col - 1, row: this.player.pos.row }; 
+                        this.goblin.state = 'MOVING';
                     }
                     break;
                 case 83: // S
                 case 40:
-                    if (this.player.state === 'IDLE') {
+                    if (this.player.state === 'IDLE' && this.goblin.state === 'IDLE') {
                         this.player.state = 'MOVING_DOWN';
-                        this.goblin.state = 'MOVING'
-                        this.player.destination = { col: this.player.pos.col, row: this.player.pos.row + 1 };
+                        this.player.destination = { col: this.player.pos.col, row: this.player.pos.row + 1 };   
+                        this.goblin.state = 'MOVING';
                     }
                     break;
                 case 68: // D
                 case 39: // RightArrow
-                    if (this.player.state === 'IDLE') {
+                    if (this.player.state === 'IDLE' && this.goblin.state === 'IDLE') {
                         this.player.state = 'MOVING_RIGHT';
-                        this.goblin.state = 'MOVING'
-                        this.player.destination = { col: this.player.pos.col + 1, row: this.player.pos.row };
+                        this.player.destination = { col: this.player.pos.col + 1, row: this.player.pos.row };    
+                        this.goblin.state = 'MOVING';
                     }
                     break;
                 default:
