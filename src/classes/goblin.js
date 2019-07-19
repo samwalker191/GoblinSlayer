@@ -38,8 +38,11 @@ class Goblin extends Entity {
                 this.state = "MOVING_DOWN";
             } else if (this.destination.col === this.pos.col + 1) {
                 this.state = "MOVING_RIGHT";
+            } else {
+                this.state = 'IDLE';
             }
         }
+        
     }
 
 

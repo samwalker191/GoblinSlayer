@@ -34,6 +34,10 @@ class Game {
 
     bindKeyListeners() {
         document.addEventListener("keydown", (e) => {
+            console.log('PLAYER STATE');
+            console.log(this.player.state);
+            console.log('GOBLIN STATE');
+            console.log(this.goblin.state);
             switch (e.keyCode) {
                 case 87: // W
                 case 38: // UpArrow
