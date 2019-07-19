@@ -1,19 +1,11 @@
-const Util = require('../util/game_util');
-const MovingObject = require('./moving_object');
-const spriteSheet = require('../assets/images/spritesheet.png');
-const Constants = require('../util/constants');
+const Entity = require('./entity');
 const Sprite = require('../util/sprite_util');
 
-class Player extends MovingObject {
+class Player extends Entity {
     constructor(pos, currentlevel, canvas) {
-        super(pos);
+        super(pos, currentlevel, canvas);
         this.size = { w: 64, h: 112 };
-        this.canvas = canvas
         this.state = 'IDLE';
-        this.destination = null;
-        this.currentLevel = currentlevel;
-        this.img = new Image();
-        this.img.src = spriteSheet;
         this.playerSprite = new Sprite({
             ctx: canvas.getContext('2d'),
             width: 128 * 4,
@@ -23,17 +15,6 @@ class Player extends MovingObject {
             numberOfFrames: 4,
             loop: true
         })
-    }
-
-    updatePos() {
-
-    }
-
-    validMove(destination) {
-        // console.log(`playerPos: ${this.pos}`);
-        // console.log(`Destination: ${destination}`);
-        // console.log(this.currentLevel.board[destination.col][destination.row])
-        return this.currentLevel.board[destination.row][destination.col] < 1;
     }
 
     move(timeDelta) {
@@ -87,6 +68,7 @@ class Player extends MovingObject {
             }
         }
     }
+
     drawPlayer(level) {
         this.canvas.width = level.tileSize * level.cols;
         this.canvas.height = level.tileSize * level.rows;
