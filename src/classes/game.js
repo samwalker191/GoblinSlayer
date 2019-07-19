@@ -13,14 +13,14 @@ class Game {
         this.levels = levels
         this.currentLevel = levels[0];
         this.player = new Player({ col: 1, row: 2 }, this.currentLevel, this.animateCanvas);
-        this.goblin = new Goblin({ col: 2, row: 2 }, this.currentLevel, this.animateCanvas);
+        this.goblin = new Goblin({ col: 7, row: 7 }, this.currentLevel, this.animateCanvas, this.player.pos);
         this.img = new Image();
         this.img.src = spriteSheet;
         this.drawBoard(this.levels[0]);
     }    
 
     allObjects() {
-        return [].concat(this.player);
+        return [].concat(this.player, this.goblin);
     }
 
     step(timeDelta) {
@@ -39,6 +39,7 @@ class Game {
                 case 38: // UpArrow
                     if (this.player.state === 'IDLE') {
                         this.player.state = 'MOVING_UP';
+                        this.goblin.state = 'MOVING'
                         this.player.destination = { col: this.player.pos.col, row: this.player.pos.row - 1 };
                     }
                     break;
@@ -46,6 +47,7 @@ class Game {
                 case 37: // LeftArrow
                     if (this.player.state === 'IDLE') {
                         this.player.state = 'MOVING_LEFT';
+                        this.goblin.state = 'MOVING'
                         this.player.destination = { col: this.player.pos.col - 1, row: this.player.pos.row };
                     }
                     break;
@@ -53,6 +55,7 @@ class Game {
                 case 40:
                     if (this.player.state === 'IDLE') {
                         this.player.state = 'MOVING_DOWN';
+                        this.goblin.state = 'MOVING'
                         this.player.destination = { col: this.player.pos.col, row: this.player.pos.row + 1 };
                     }
                     break;
@@ -60,6 +63,7 @@ class Game {
                 case 39: // RightArrow
                     if (this.player.state === 'IDLE') {
                         this.player.state = 'MOVING_RIGHT';
+                        this.goblin.state = 'MOVING'
                         this.player.destination = { col: this.player.pos.col + 1, row: this.player.pos.row };
                     }
                     break;
