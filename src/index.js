@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const level1 = new LevelOne();
     let levels = [level1];
     const game = new Game(boardCanvas, animateCanvas, levels);
+    
     const gameView = new GameView(game)
     gameView.start();
     // new GameView(game, ctx).start();

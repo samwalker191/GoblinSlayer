@@ -70,9 +70,9 @@ class Player extends Entity {
     }
 
     draw(level) {
-        
-        this.canvas.width = level.tileSize * level.cols;
-        this.canvas.height = level.tileSize * level.rows;
+        debugger
+        // this.canvas.width = level.tileSize * level.cols;
+        // this.canvas.height = level.tileSize * level.rows;
         
         this.playerSprite.update();
         if (this.state === "IDLE") {

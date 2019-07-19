@@ -27,9 +27,9 @@ class Game {
         this.allObjects().forEach(obj => {
             obj.move(timeDelta);
         })
-        this.aniCtx.save();
+        // this.aniCtx.save();
         this.drawEntities();
-        this.aniCtx.restore();
+        // this.aniCtx.restore();
     }
 
     bindKeyListeners() {
@@ -78,15 +78,15 @@ class Game {
     }
 
     drawEntities() {
-        this.aniCtx.clearRect(0,0, 800, 800);
-
-        this.aniCtx.save();
-        this.player.draw(this.levels[0]);
-        this.aniCtx.restore();
-
-        this.aniCtx.save();
+        // this.aniCtx.clearRect(0,0, 800, 800);
+        
+        // this.aniCtx.save();
         this.goblin.draw(this.levels[0]);
-        this.aniCtx.restore();
+        this.player.draw(this.levels[0]);
+        // this.aniCtx.restore();
+
+        // this.aniCtx.save();
+        // this.aniCtx.restore();
 
     }
 }

@@ -31,7 +31,7 @@ class LevelOne {
         ctx.webkitImageSmoothingEnabled = false;
         ctx.msImageSmoothingEnabled = false;
         ctx.imageSmoothingEnabled = false;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
