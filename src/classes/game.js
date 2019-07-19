@@ -10,7 +10,7 @@ class Game {
         this.animateCanvas = animateCanvas;
         this.levels = levels
         this.currentLevel = levels[0];
-        this.player = new Player({ col: 1, row: 2 }, this.currentLevel);
+        this.player = new Player({ col: 1, row: 2 }, this.currentLevel, this.animateCanvas);
         this.img = new Image();
         this.img.src = spriteSheet;
         this.drawBoard(this.levels[0]);
@@ -29,7 +29,6 @@ class Game {
 
     bindKeyListeners() {
         document.addEventListener("keydown", (e) => {
-            console.log(e.keyCode);
             switch (e.keyCode) {
                 case 87: // W
                 case 38: // UpArrow
@@ -39,7 +38,7 @@ class Game {
                     }
                     break;
                 case 65: // A
-                case 37L // LeftArrow
+                case 37: // LeftArrow
                     if (this.player.state === null) {
                         this.player.state = 'MOVING_LEFT';
                         this.player.destination = { col: this.player.pos.col - 1, row: this.player.pos.row };
@@ -75,7 +74,7 @@ class Game {
     drawEntities() {
         let img = new Image();
         img.src = spriteSheet;
-        this.player.drawPlayer(this.animateCanvas, this.levels[0]);
+        this.player.drawPlayer(this.levels[0]);
     }
 }
 

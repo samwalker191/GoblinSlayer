@@ -11,7 +11,6 @@ class GameView {
     }
 
     animate(time) {
-        // console.log('running')
         const timeDelta = time - this.lastTime;
 
         this.game.step(timeDelta);
