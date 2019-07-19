@@ -1,4 +1,3 @@
-
 const findPath = (board, pathStart, pathEnd) => {
     let walkableTileValue = 0;
     let boardWidth = board[0].length;
@@ -8,8 +7,8 @@ const findPath = (board, pathStart, pathEnd) => {
     let distanceFunction = manhattanDistance;
     let findNeighbours = () => {};
 
-    const manhattanDistance = (start, goal) => {
-        return Math.abs(start.x - goal.x) + Math.abs(start.y - goal.y);
+    const manhattanDistance = (point, goal) => {
+        return Math.abs(point.x - goal.x) + Math.abs(point.y - goal.y);
     };
 
     const validTile = (col, row) => {
@@ -43,4 +42,72 @@ const findPath = (board, pathStart, pathEnd) => {
         }
         return result;
     };
+
+    const Node = (parent, point) => {
+        let newNode = {
+            parent: parent,
+            value: point.x + (point.y * worldWidth),
+            x: point.x,
+            y: point.y,
+            costFromStart: 0,
+            costToGoal: 0
+        };
+        return newNode;
+    };
+
+    const calculatePath = () => {
+        let myPathStart = Node(null, { x: pathStart.x, y: pathStart.y });
+        let myPathEnd = Node(null, { x: pathEnd.x, y: pathEnd.y });
+        let aStar = new Array(boardSize);
+        let open = [myPathStart];
+        let closed = [];
+        let result = [];
+        let myNeighbors;
+        let myNode;
+        let myPath;
+        let length;
+        let max;
+        let min;
+        let i;
+        let j;
+        
+        while (length = open.length) {
+            max = boardSize;
+            min = -1;
+            for (i = 0; i < length; i++) {
+                if (open[i].costFromStart < max) {
+                    max = open[i].costFromStart;
+                    min = i;
+                }
+            }
+
+            myNode = open.splice(min, 1)[0];
+
+            if (myNode.value === myPathEnd.value) {
+                myPath = closed[closed.push(myNode) - 1];
+                do {
+                    result.push({ col: myPath.x, row: myPath.y });
+                } while (myPath = myPath.parent);
+                aStar = [];
+                closed = [];
+                open = [];
+                result.reverse();
+            } else {
+                myNeighbors = Neighbours(myNode.x, myNode.y); //array of neighbors
+
+                for(i = 0; i < myNeighbors.length; i++) {
+                    myPath = Node(myNode, myNeighbors[i]);
+                    if (!aStar[myPath.value]) {
+                        myPath.costToGoal = myNode.costToGoal + distanceFunction(myNeighbors[i], myNode);
+                        myPath.costFromStart = myPath.costToGoal + distanceFunction(myNeighbors[i], myPathEnd);
+                        open.push(myPath);
+                        aStar[myPath.value] = true;
+                    }
+                }
+                closed.push(myNode);
+            }
+        }
+        return result;
+    }
+    return calculatePath();
 }
