@@ -32,27 +32,27 @@ class Game {
             switch (e.keyCode) {
                 case 87: // W
                 case 38: // UpArrow
-                    if (this.player.state === null) {
+                    if (this.player.state === 'IDLE') {
                         this.player.state = 'MOVING_UP';
                         this.player.destination = { col: this.player.pos.col, row: this.player.pos.row - 1 };
                     }
                     break;
                 case 65: // A
                 case 37: // LeftArrow
-                    if (this.player.state === null) {
+                    if (this.player.state === 'IDLE') {
                         this.player.state = 'MOVING_LEFT';
                         this.player.destination = { col: this.player.pos.col - 1, row: this.player.pos.row };
                     }
                     break;
                 case 83: // S
-                    if (this.player.state === null) {
+                    if (this.player.state === 'IDLE') {
                         this.player.state = 'MOVING_DOWN';
                         this.player.destination = { col: this.player.pos.col, row: this.player.pos.row + 1 };
                     }
                     break;
                 case 68: // D
                 case 39: // RightArrow
-                    if (this.player.state === null) {
+                    if (this.player.state === 'IDLE') {
                         this.player.state = 'MOVING_RIGHT';
                         this.player.destination = { col: this.player.pos.col + 1, row: this.player.pos.row };
                     }

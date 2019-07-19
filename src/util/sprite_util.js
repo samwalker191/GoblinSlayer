@@ -27,7 +27,7 @@ class Sprite {
         
     }
 
-    render(col, row, width, height) {
+    render(col, row, width, height, sheetPosX, sheetPosY) {
         this.ctx.mozImageSmoothingEnabled = false;
         this.ctx.webkitImageSmoothingEnabled = false;
         this.ctx.msImageSmoothingEnabled = false;
@@ -35,8 +35,8 @@ class Sprite {
         // this.ctx.clearRect(col, row, width, height)
         this.ctx.drawImage(
             this.img,
-            (this.frameIndex * 16) + (512 / this.numberOfFrames),
-            68,
+            (this.frameIndex * 16) + sheetPosX,
+            sheetPosY,
             16,
             28,
             col * Constants.TILE_SIZE,

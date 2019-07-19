@@ -9,7 +9,7 @@ class Player extends MovingObject {
         super(pos);
         this.size = { w: 64, h: 112 };
         this.canvas = canvas
-        this.state = null;
+        this.state = 'IDLE';
         this.destination = null;
         this.currentLevel = currentlevel;
         this.img = new Image();
@@ -41,49 +41,49 @@ class Player extends MovingObject {
             if (this.validMove(this.destination)) {
                 if (Math.ceil(this.pos.row) === this.destination.row) {
                     this.pos.row = this.destination.row;
-                    this.state = null;
+                    this.state = 'IDLE';
                     return;
                 } else {
                     this.pos.row += -2 / timeDelta;
                 }
             } else {
-                this.state = null;
+                this.state = 'IDLE';
             }
         } else if (this.state === 'MOVING_LEFT') {
             if (this.validMove(this.destination)) {
                 if (Math.ceil(this.pos.col) === this.destination.col) {
                     this.pos.col = this.destination.col;
-                    this.state = null;
+                    this.state = 'IDLE';
                     return;
                 } else {
                     this.pos.col += -2 / timeDelta;
                 }
             } else {
-                this.state = null;
+                this.state = 'IDLE';
             }
         } else if (this.state === 'MOVING_DOWN') {
             if (this.validMove(this.destination)) {
                 if (Math.floor(this.pos.row) === this.destination.row) {
                     this.pos.row = this.destination.row;
-                    this.state = null;
+                    this.state = 'IDLE';
                     return;
                 } else {
                     this.pos.row += 2 / timeDelta;
                 }
             } else {
-                this.state = null;
+                this.state = 'IDLE';
             }
         } else if (this.state === 'MOVING_RIGHT') {
             if (this.validMove(this.destination)) {
                 if (Math.floor(this.pos.col) === this.destination.col) {
                     this.pos.col = this.destination.col;
-                    this.state = null;
+                    this.state = 'IDLE';
                     return;
                 } else {
                     this.pos.col += 2 / timeDelta;
                 }
             } else {
-                this.state = null;
+                this.state = 'IDLE';
             }
         }
     }
@@ -92,12 +92,25 @@ class Player extends MovingObject {
         this.canvas.height = level.tileSize * level.rows;
         
         this.playerSprite.update();
-        this.playerSprite.render(
-            this.pos.col,
-            this.pos.row,
-            this.size.w,
-            this.size.h
-        );
+        if (this.state === "IDLE") {
+            this.playerSprite.render(
+                this.pos.col,
+                this.pos.row,
+                this.size.w,
+                this.size.h,
+                128,
+                68
+            );
+        } else {
+            this.playerSprite.render(
+                this.pos.col,
+                this.pos.row,
+                this.size.w,
+                this.size.h,
+                192,
+                68
+            )
+        }
         // ctx1.drawImage(
         //     img, 128, 68, 16, 28,
         //     this.pos.col * Constants.TILE_SIZE,
