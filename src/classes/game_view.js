@@ -12,14 +12,10 @@ class GameView {
     }
 
     animate(time) {
-        
         requestAnimationFrame(this.animate.bind(this));
         const timeDelta = time - this.lastTime;
-        // this.game.aniCtx.save();
         this.game.step(timeDelta);
-        // this.game.aniCtx.restore();
         this.lastTime = time;
-        
     }
 }
 

@@ -26,18 +26,35 @@ class Game {
         return [].concat(this.player).concat(this.goblins);
     }
 
+    allEnemies() {
+        return [].concat(this.goblins);
+    }
+
     addGoblin() {
-        let goblin = new Goblin({ col: 7, row: 7 }, this.currentLevel, this.animateCanvas, this.player.pos);
-        this.goblins.push(goblin);
+        let goblin1 = new Goblin({ col: 9, row: 8 }, this.currentLevel, this.animateCanvas, this.player.pos);
+        let goblin2 = new Goblin({ col: 1, row: 8 }, this.currentLevel, this.animateCanvas, this.player.pos);
+        let goblin3 = new Goblin({ col: 2, row: 8 }, this.currentLevel, this.animateCanvas, this.player.pos);
+        let goblin4 = new Goblin({ col: 9, row: 7 }, this.currentLevel, this.animateCanvas, this.player.pos);
+        this.goblins.push(goblin1);
+        this.goblins.push(goblin2);
+        this.goblins.push(goblin3);
+        this.goblins.push(goblin4);
     }
 
     step(timeDelta) {
+        this.aniCtx.clearRect(0, 0, 5000, 5000);
+        if (this.player.state.includes('ATTACK')) {
+            this.player.drawAttack(this.aniCtx);            
+            this.goblins.forEach((goblin, idx) => {
+                if (this.player.attack(goblin)) {
+                    this.goblins.splice(idx, 1);
+                }
+            })
+        }
         this.allObjects().forEach(obj => {
             obj.move(timeDelta);
         })
-        // this.aniCtx.save();
         this.drawEntities();
-        // this.aniCtx.restore();
     }
 
     bindKeyListeners() {
@@ -74,13 +91,24 @@ class Game {
                     break;
                 case 38: // UpArrow
                     if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
-                        this.player.state === 'ATTACK_UP';
+                        this.player.state = 'ATTACK_UP';
                         this.goblins.forEach(goblin => goblin.state = 'MOVING');
                     }
                 case 37: // LeftArrow
+                    if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                        this.player.state = 'ATTACK_LEFT';
+                        this.goblins.forEach(goblin => goblin.state = 'MOVING');
+                    }
                 case 40: // DownArrow
+                    if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                        this.player.state = 'ATTACK_DOWN';
+                        this.goblins.forEach(goblin => goblin.state = 'MOVING');
+                    }
                 case 39: // RightArrow
-
+                    if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                        this.player.state = 'ATTACK_RIGHT';
+                        this.goblins.forEach(goblin => goblin.state = 'MOVING');
+                    }
                 default:
                     break;
             }
@@ -88,26 +116,13 @@ class Game {
     }
 
     drawBoard(level) {
-        // let img = new Image();
-        // img.src = spriteSheet;
         window.onload = () => {
             level.drawLevel(this.boardCanvas);
         }
     }
 
     drawEntities() {
-        this.aniCtx.clearRect(0,0, 5000, 5000);
-        console.log(this.allObjects());
-        
-        // this.aniCtx.save();
         this.allObjects().forEach(obj => obj.draw(this.currentLevel));
-        // this.goblin.draw(this.levels[0]);
-        // this.player.draw(this.levels[0]);
-        // this.aniCtx.restore();
-
-        // this.aniCtx.save();
-        // this.aniCtx.restore();
-
     }
 }
 

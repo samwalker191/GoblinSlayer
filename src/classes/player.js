@@ -1,11 +1,13 @@
 const Entity = require('./entity');
 const Sprite = require('../util/sprite_util');
+const Constants = require('../util/constants');
 
 class Player extends Entity {
     constructor(pos, currentlevel, canvas) {
         super(pos, currentlevel, canvas);
         this.size = { w: 64, h: 112 };
         this.state = 'IDLE';
+        this.tileToAttack = null;
         this.playerSprite = new Sprite({
             ctx: canvas.getContext('2d'),
             width: 128 * 4,
@@ -15,6 +17,24 @@ class Player extends Entity {
             numberOfFrames: 4,
             loop: true
         });
+    }
+
+    setTileToAttack() {
+        if (this.state === 'ATTACK_UP') {
+            this.tileToAttack = { col: this.pos.col, row: this.pos.row - 1 };
+        } else if (this.state === 'ATTACK_LEFT') {
+            this.tileToAttack = { col: this.pos.col - 1, row: this.pos.row };
+        } else if (this.state === 'ATTACK_DOWN') {
+            this.tileToAttack = { col: this.pos.col, row: this.pos.row + 1 };
+        } else if (this.state === 'ATTACK_RIGHT') {
+            this.tileToAttack = { col: this.pos.col + 1, row: this.pos.row };
+        } 
+    }
+
+    attack(enemy) {
+        this.setTileToAttack();
+        this.state = 'IDLE';
+        return (enemy.pos.col === this.tileToAttack.col && enemy.pos.row === this.tileToAttack.row);
     }
 
     move(timeDelta) {
@@ -70,10 +90,6 @@ class Player extends Entity {
     }
 
     draw(level) {
-        
-        // this.canvas.width = level.tileSize * level.cols;
-        // this.canvas.height = level.tileSize * level.rows;
-        
         this.playerSprite.update();
         if (this.state === "IDLE") {
             this.playerSprite.render(
@@ -99,6 +115,18 @@ class Player extends Entity {
                 28,
                 64
             )
+        } else {
+            this.playerSprite.render(
+                this.pos.col,
+                this.pos.row,
+                this.size.w,
+                this.size.h,
+                128,
+                68,
+                16,
+                28,
+                64
+            );
         }
         // ctx1.drawImage(
         //     img, 128, 68, 16, 28,
@@ -110,29 +138,31 @@ class Player extends Entity {
 
     }
 
-    // drawPlayer(canvas, level) {
-    //     let playerSprite = new Sprite({
-    //         ctx: canvas.getContext('2d');
-    //     })
-    //     let ctx1 = canvas.getContext('2d');
-    //     canvas.width = level.tileSize * level.cols;
-    //     canvas.height = level.tileSize * level.rows;
-    //     let img = new Image();
-    //     img.src = spriteSheet;
-    //     ctx1.mozImageSmoothingEnabled = false;
-    //     ctx1.webkitImageSmoothingEnabled = false;
-    //     ctx1.msImageSmoothingEnabled = false;
-    //     ctx1.imageSmoothingEnabled = false;
-        // ctx1.clearRect(this.pos.col, this.pos.row, this.size.w, this.size.h);
-    //     ctx1.drawImage(
-    //         img, 128, 68, 16, 28,
-    //         this.pos.col * Constants.TILE_SIZE,
-    //         this.pos.row * Constants.TILE_SIZE - 64,
-    //         this.size.w,
-    //         this.size.h
-    //     )
-
-    // }
-};
+    drawAttack(ctx) {
+        // if (this.state.includes('ATTACK')) {
+            
+            ctx.mozImageSmoothingEnabled = false;
+            ctx.webkitImageSmoothingEnabled = false;
+            ctx.msImageSmoothingEnabled = false;
+            ctx.imageSmoothingEnabled = false;
+            ctx.save();
+            ctx.translate(this.pos.col * Constants.TILE_SIZE, this.pos.row * Constants.TILE_SIZE);
+            ctx.rotate(90 * Math.PI / 180);
+            ctx.translate(-this.pos.col * Constants.TILE_SIZE, -this.pos.row * Constants.TILE_SIZE);
+            ctx.drawImage(
+                this.img,
+                323, // sheetPosX
+                26, // sheetPosY
+                10, // spriteSizeW
+                21, // spriteSizeH
+                this.pos.col * Constants.TILE_SIZE, // posX on canvas to draw 
+                this.pos.row * Constants.TILE_SIZE - 112, // posY on canvas to draw
+                40, // sizeW to draw on canvas
+                84 // sizeH to draw on canvas
+            )
+            ctx.restore();
+        // }
+    }
+}
 
 module.exports = Player;
