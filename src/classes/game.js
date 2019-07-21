@@ -1,4 +1,5 @@
 const Constants = require('../util/constants');
+const Util = require('../util/game_util');
 const LevelOne = require('../util/levels/level1');
 const Player = require('./player');
 const Goblin = require('./goblin');
@@ -9,6 +10,7 @@ const FPS = 60;
 class Game {
     constructor(boardCanvas, animateCanvas, attackCanvas, levels) {
         this.levels = levels
+        this.kills = 0;
         this.currentLevel = levels[0];
         this.boardCanvas = boardCanvas;
         this.animateCanvas = animateCanvas;
@@ -34,6 +36,19 @@ class Game {
         return [].concat(this.goblins);
     }
 
+    allOccupiedTiles() {
+        let occupiedTiles = [];
+        occupiedTiles.push(this.player.pos);
+        this.goblins.forEach(goblin => {
+            occupiedTiles.push(goblin.pos);
+        })
+        return occupiedTiles;
+    }
+
+    randomPos() {
+        let pos = { col: Util.randomInt()}
+    }
+
     addGoblin() {
         let goblin1 = new Goblin({ col: 9, row: 8 }, this.currentLevel, this.animateCanvas, this.player.pos);
         let goblin2 = new Goblin({ col: 1, row: 8 }, this.currentLevel, this.animateCanvas, this.player.pos);
@@ -49,6 +64,7 @@ class Game {
             this.goblins.forEach((goblin, idx) => {
                 if (this.player.attack(goblin)) {
                     this.goblins.splice(idx, 1);
+                    this.kills += 1;
                 }
             })
         }
@@ -90,24 +106,28 @@ class Game {
                     }
                     break;
                 case 38: // UpArrow
+                    e.preventDefault();
                     if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'ATTACK_UP';
                         this.player.attacking = 100;
                         this.goblins.forEach(goblin => goblin.state = 'MOVING');
                     }
                 case 37: // LeftArrow
+                    e.preventDefault();
                     if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'ATTACK_LEFT';
                         this.player.attacking = 100;
                         this.goblins.forEach(goblin => goblin.state = 'MOVING');
                     }
                 case 40: // DownArrow
+                    e.preventDefault();
                     if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'ATTACK_DOWN';
                         this.player.attacking = 100;
                         this.goblins.forEach(goblin => goblin.state = 'MOVING');
                     }
                 case 39: // RightArrow
+                    e.preventDefault();
                     if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'ATTACK_RIGHT';
                         this.player.attacking = 100;
