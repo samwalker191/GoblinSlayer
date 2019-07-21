@@ -8,6 +8,7 @@ class Entity {
         this.canvas = canvas
         this.currentLevel = currentLevel;
         this.destination = null;
+        this.oldPos = null;
         this.img = new Image();
         this.img.src = spriteSheet;
     }

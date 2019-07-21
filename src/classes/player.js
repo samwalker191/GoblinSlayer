@@ -7,6 +7,7 @@ class Player extends Entity {
     constructor(pos, currentlevel, canvas, attackCanvas) {
         super(pos, currentlevel, canvas);
         this.size = { w: 64, h: 112 };
+        this.oldPos = this.pos;
         this.state = 'IDLE';
         this.attacking = 0;
         this.tileToAttack = null;
@@ -60,6 +61,8 @@ class Player extends Entity {
             if (this.validMove(this.destination)) {
                 if (Math.ceil(this.pos.row) === this.destination.row) {
                     this.pos.row = this.destination.row;
+                    this.currentLevel.board[this.oldPos.col][this.oldPos.row] = 0;
+                    this.currentLevel.board[this.destination.col][this.destination.row] = -1;
                     this.state = 'IDLE';
                     return;
                 } else {
@@ -72,6 +75,8 @@ class Player extends Entity {
             if (this.validMove(this.destination)) {
                 if (Math.ceil(this.pos.col) === this.destination.col) {
                     this.pos.col = this.destination.col;
+                    this.currentLevel.board[this.oldPos.row][this.oldPos.col] = 0;
+                    this.currentLevel.board[this.destination.row][this.destination.col] = -1;
                     this.state = 'IDLE';
                     return;
                 } else {
@@ -84,6 +89,8 @@ class Player extends Entity {
             if (this.validMove(this.destination)) {
                 if (Math.floor(this.pos.row) === this.destination.row) {
                     this.pos.row = this.destination.row;
+                    this.currentLevel.board[this.oldPos.row][this.oldPos.col] = 0;
+                    this.currentLevel.board[this.destination.row][this.destination.col] = -1;
                     this.state = 'IDLE';
                     return;
                 } else {
@@ -96,6 +103,8 @@ class Player extends Entity {
             if (this.validMove(this.destination)) {
                 if (Math.floor(this.pos.col) === this.destination.col) {
                     this.pos.col = this.destination.col;
+                    this.currentLevel.board[this.oldPos.row][this.oldPos.col] = 0;
+                    this.currentLevel.board[this.destination.row][this.destination.col] = -1;
                     this.state = 'IDLE';
                     return;
                 } else {

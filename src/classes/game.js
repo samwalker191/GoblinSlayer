@@ -46,7 +46,8 @@ class Game {
     }
 
     randomPos() {
-        let pos = { col: Util.randomInt()}
+        let pos = { col: Util.randomInt(1, 9), row: Util.randomInt(2, 8) };
+
     }
 
     addGoblin() {
@@ -58,6 +59,7 @@ class Game {
     }
 
     step(timeDelta) {
+        console.log(this.currentLevel.board);
         this.aniCtx.clearRect(0, 0, 5000, 5000);
         if (this.player.state.includes('ATTACK')) {
             this.player.drawAttack();            
@@ -81,6 +83,7 @@ class Game {
                     if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'MOVING_UP';
                         this.player.destination = { col: this.player.pos.col, row: this.player.pos.row - 1 };
+                        this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
                         this.goblins.forEach(goblin => goblin.state = 'MOVING');
                     }
                     break;
@@ -88,6 +91,7 @@ class Game {
                     if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'MOVING_LEFT';
                         this.player.destination = { col: this.player.pos.col - 1, row: this.player.pos.row }; 
+                        this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
                         this.goblins.forEach(goblin => goblin.state = 'MOVING');
                     }
                     break;
@@ -95,6 +99,7 @@ class Game {
                     if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'MOVING_DOWN';
                         this.player.destination = { col: this.player.pos.col, row: this.player.pos.row + 1 };   
+                        this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
                         this.goblins.forEach(goblin => goblin.state = 'MOVING');
                     }
                     break;
@@ -102,6 +107,7 @@ class Game {
                     if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'MOVING_RIGHT';
                         this.player.destination = { col: this.player.pos.col + 1, row: this.player.pos.row };    
+                        this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
                         this.goblins.forEach(goblin => goblin.state = 'MOVING');
                     }
                     break;
