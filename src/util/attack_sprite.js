@@ -26,31 +26,29 @@ class AttackSprite {
         }
     }
 
-    render(col, row, width, height, sheetPosX, sheetPosY, spriteSizeW, spriteSizeH, pixelOffSet, rotation) {
+    render(col, row, width, height, sheetPosX, sheetPosY, spriteSizeW, spriteSizeH, pixelOffSetX, pixelOffSetY, rotateBy) {
         this.ctx.mozImageSmoothingEnabled = false;
         this.ctx.webkitImageSmoothingEnabled = false;
         this.ctx.msImageSmoothingEnabled = false;
         this.ctx.imageSmoothingEnabled = false;
-        debugger
-        // for (let i = 0; i < this.numberOfRotations - 1; i++) {
             this.ctx.clearRect(0, 0, 5000, 5000);
             this.ctx.save();
-            this.ctx.translate(col * Constants.TILE_SIZE, row * Constants.TILE_SIZE);
-            this.ctx.rotate(this.rotateDegrees + (7.5 * this.frameIndex) * Math.PI / 180);
-            this.ctx.translate((-col * Constants.TILE_SIZE), (-row * Constants.TILE_SIZE));
+            this.ctx.translate((col * Constants.TILE_SIZE + 40 / 2), (row * Constants.TILE_SIZE + 84 * .285));
+            this.ctx.rotate((this.rotateDegrees + (rotateBy * this.frameIndex)) * Math.PI / 180);
+            this.ctx.translate(-(col * Constants.TILE_SIZE + 40 / 2),  -(row * Constants.TILE_SIZE + 84 * .285));
+            // this.ctx.fillRect(col * Constants.TILE_SIZE, row * Constants.TILE_SIZE, 40, 84);
             this.ctx.drawImage(
                 this.img,
                 sheetPosX,
                 sheetPosY,
                 spriteSizeW,
                 spriteSizeH,
-                col * Constants.TILE_SIZE,
-                row * Constants.TILE_SIZE - 112,
+                col * Constants.TILE_SIZE + pixelOffSetY,
+                row * Constants.TILE_SIZE + pixelOffSetX,
                 width,
                 height
             );
             this.ctx.restore();
-        // }
     }
 }
 

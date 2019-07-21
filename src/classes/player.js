@@ -158,7 +158,30 @@ class Player extends Entity {
 
     drawAttack() {
         let ctx = this.attackCanvas.getContext('2d');
-        ctx.clearRect(0, 0, 5000, 5000);
+        let offsetX;
+        let offsetY;
+        let rotateBy;
+        if (this.state === 'ATTACK_UP') {
+            this.attackSprite.rotateDegrees = -45;
+            offsetX = -64;
+            offsetY = 0;
+            rotateBy = 11.125;
+        } else if (this.state === 'ATTACK_LEFT') {
+            this.attackSprite.rotateDegrees = 0;
+            offsetX = -64;
+            offsetY = -0;
+            rotateBy = -11.125;
+        } else if (this.state === 'ATTACK_DOWN') {
+            this.attackSprite.rotateDegrees = 90;
+            offsetX = -64;
+            offsetY = 0;
+            rotateBy = 11.125;
+        } else if (this.state === 'ATTACK_RIGHT') {
+            this.attackSprite.rotateDegrees = 0;
+            offsetX = -64;
+            offsetY = 0;
+            rotateBy = 11.125;
+        }
         this.attackSprite.update();
         this.attackSprite.render(
             this.pos.col, // col
@@ -169,8 +192,9 @@ class Player extends Entity {
             26, // sheetPosY
             10, // spriteSizeW
             21, // spriteSizeH
-            112,
-            45
+            offsetX,
+            offsetY,
+            rotateBy
         );
         if (this.attacking <= 0) {
             this.attackSprite.frameIndex = 0;
