@@ -7,15 +7,19 @@ const spriteSheet = require('../assets/images/spritesheet.png');
 
 const FPS = 60;
 class Game {
-    constructor(boardCanvas, animateCanvas, levels) {
+    constructor(boardCanvas, animateCanvas, attackCanvas, levels) {
         this.levels = levels
         this.currentLevel = levels[0];
         this.boardCanvas = boardCanvas;
         this.animateCanvas = animateCanvas;
         this.animateCanvas.width = this.currentLevel.tileSize * this.currentLevel.cols;
         this.animateCanvas.height = this.currentLevel.tileSize * this.currentLevel.rows;
+        this.attackCanvas = attackCanvas;
+        this.attackCanvas.width = this.currentLevel.tileSize * this.currentLevel.cols;
+        this.attackCanvas.height = this.currentLevel.tileSize * this.currentLevel.rows;
         this.aniCtx = this.animateCanvas.getContext('2d');
-        this.player = new Player({ col: 1, row: 2 }, this.currentLevel, this.animateCanvas);
+        this.attackCtx = this.attackCanvas.getContext('2d');
+        this.player = new Player({ col: 1, row: 2 }, this.currentLevel, this.animateCanvas, this.attackCanvas);
         this.goblins = [];
         this.img = new Image();
         this.img.src = spriteSheet;
@@ -35,16 +39,13 @@ class Game {
         let goblin2 = new Goblin({ col: 1, row: 8 }, this.currentLevel, this.animateCanvas, this.player.pos);
         let goblin3 = new Goblin({ col: 2, row: 8 }, this.currentLevel, this.animateCanvas, this.player.pos);
         let goblin4 = new Goblin({ col: 9, row: 7 }, this.currentLevel, this.animateCanvas, this.player.pos);
-        this.goblins.push(goblin1);
-        this.goblins.push(goblin2);
-        this.goblins.push(goblin3);
-        this.goblins.push(goblin4);
+        this.goblins.push(goblin1, goblin2, goblin3, goblin4);
     }
 
     step(timeDelta) {
         this.aniCtx.clearRect(0, 0, 5000, 5000);
         if (this.player.state.includes('ATTACK')) {
-            this.player.drawAttack(this.aniCtx);            
+            this.player.drawAttack();            
             this.goblins.forEach((goblin, idx) => {
                 if (this.player.attack(goblin)) {
                     this.goblins.splice(idx, 1);
@@ -61,7 +62,6 @@ class Game {
         document.addEventListener("keydown", (e) => {
             switch (e.keyCode) {
                 case 87: // W
-                
                     if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'MOVING_UP';
                         this.player.destination = { col: this.player.pos.col, row: this.player.pos.row - 1 };
@@ -90,23 +90,27 @@ class Game {
                     }
                     break;
                 case 38: // UpArrow
-                    if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                    if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'ATTACK_UP';
+                        this.player.attacking = 100;
                         this.goblins.forEach(goblin => goblin.state = 'MOVING');
                     }
                 case 37: // LeftArrow
-                    if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                    if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'ATTACK_LEFT';
+                        this.player.attacking = 100;
                         this.goblins.forEach(goblin => goblin.state = 'MOVING');
                     }
                 case 40: // DownArrow
-                    if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                    if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'ATTACK_DOWN';
+                        this.player.attacking = 100;
                         this.goblins.forEach(goblin => goblin.state = 'MOVING');
                     }
                 case 39: // RightArrow
-                    if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                    if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'ATTACK_RIGHT';
+                        this.player.attacking = 100;
                         this.goblins.forEach(goblin => goblin.state = 'MOVING');
                     }
                 default:

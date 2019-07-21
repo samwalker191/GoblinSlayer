@@ -21,3 +21,7 @@ canvas {
 #animate-canvas {
     z-index: 2;
 }
+
+#attack-canvas {
+    z-index: 3;
+}

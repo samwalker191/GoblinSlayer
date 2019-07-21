@@ -3,8 +3,6 @@ const Constants = require('./constants');
 class Sprite {
     constructor(options) {
         this.ctx = options.ctx;
-        // this.canvasWidth = options.canvasWidth;
-        // this.canvasHeight = options.canvasHeight;
         this.img = options.img;
         this.frameIndex = 0;
         this.tickCount = 0;

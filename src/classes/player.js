@@ -1,25 +1,35 @@
 const Entity = require('./entity');
 const Sprite = require('../util/sprite_util');
+const AttackSprite = require('../util/attack_sprite');
 const Constants = require('../util/constants');
 
 class Player extends Entity {
-    constructor(pos, currentlevel, canvas) {
+    constructor(pos, currentlevel, canvas, attackCanvas) {
         super(pos, currentlevel, canvas);
         this.size = { w: 64, h: 112 };
         this.state = 'IDLE';
+        this.attacking = 0;
         this.tileToAttack = null;
+        this.attackCanvas = attackCanvas;
         this.playerSprite = new Sprite({
             ctx: canvas.getContext('2d'),
-            width: 128 * 4,
-            height: 68,
             img: this.img,
-            ticksPerFrame: 5,
+            ticksPerFrame: 4,
             numberOfFrames: 4,
             loop: true
+        });
+        this.attackSprite = new AttackSprite({
+            ctx: this.attackCanvas.getContext('2d'),
+            img: this.img,
+            ticksPerRotate: 0.5,
+            numberOfRotations: 6,
+            rotateDegrees: 45,
+            loop: false
         });
     }
 
     setTileToAttack() {
+        // this.attacking = 4;
         if (this.state === 'ATTACK_UP') {
             this.tileToAttack = { col: this.pos.col, row: this.pos.row - 1 };
         } else if (this.state === 'ATTACK_LEFT') {
@@ -33,11 +43,19 @@ class Player extends Entity {
 
     attack(enemy) {
         this.setTileToAttack();
-        this.state = 'IDLE';
+        // this.drawAttack();
+        // this.state = 'IDLE';
         return (enemy.pos.col === this.tileToAttack.col && enemy.pos.row === this.tileToAttack.row);
     }
 
     move(timeDelta) {
+        if (this.attacking > 0) {
+            this.attacking -= timeDelta;
+            return;
+        } else if (this.attacking < 0) {
+            this.attacking = 0;
+            this.state = 'IDLE';
+        }
         if (this.state === 'MOVING_UP') {
             if (this.validMove(this.destination)) {
                 if (Math.ceil(this.pos.row) === this.destination.row) {
@@ -138,29 +156,47 @@ class Player extends Entity {
 
     }
 
-    drawAttack(ctx) {
-        // if (this.state.includes('ATTACK')) {
-            
-            ctx.mozImageSmoothingEnabled = false;
-            ctx.webkitImageSmoothingEnabled = false;
-            ctx.msImageSmoothingEnabled = false;
-            ctx.imageSmoothingEnabled = false;
-            ctx.save();
-            ctx.translate(this.pos.col * Constants.TILE_SIZE, this.pos.row * Constants.TILE_SIZE);
-            ctx.rotate(90 * Math.PI / 180);
-            ctx.translate(-this.pos.col * Constants.TILE_SIZE, -this.pos.row * Constants.TILE_SIZE);
-            ctx.drawImage(
-                this.img,
-                323, // sheetPosX
-                26, // sheetPosY
-                10, // spriteSizeW
-                21, // spriteSizeH
-                this.pos.col * Constants.TILE_SIZE, // posX on canvas to draw 
-                this.pos.row * Constants.TILE_SIZE - 112, // posY on canvas to draw
-                40, // sizeW to draw on canvas
-                84 // sizeH to draw on canvas
-            )
-            ctx.restore();
+    drawAttack() {
+        let ctx = this.attackCanvas.getContext('2d');
+        ctx.clearRect(0, 0, 5000, 5000);
+        this.attackSprite.update();
+        this.attackSprite.render(
+            this.pos.col, // col
+            this.pos.row, // row
+            40, // width
+            84, // height
+            323, // sheetPosX
+            26, // sheetPosY
+            10, // spriteSizeW
+            21, // spriteSizeH
+            112,
+            45
+        );
+        if (this.attacking <= 0) {
+            this.attackSprite.frameIndex = 0;
+            ctx.clearRect(0, 0, 5000, 5000);
+        }
+        // this.state = 'IDLE';
+            // ctx.mozImageSmoothingEnabled = false;
+            // ctx.webkitImageSmoothingEnabled = false;
+            // ctx.msImageSmoothingEnabled = false;
+            // ctx.imageSmoothingEnabled = false;
+            // ctx.save();
+            // ctx.translate(this.pos.col * Constants.TILE_SIZE, this.pos.row * Constants.TILE_SIZE);
+            // ctx.rotate(90 * Math.PI / 180);
+            // ctx.translate(-this.pos.col * Constants.TILE_SIZE, -this.pos.row * Constants.TILE_SIZE);
+            // ctx.drawImage(
+            //     this.img,
+            //     323, // sheetPosX
+            //     26, // sheetPosY
+            //     10, // spriteSizeW
+            //     21, // spriteSizeH
+            //     this.pos.col * Constants.TILE_SIZE, // posX on canvas to draw 
+            //     this.pos.row * Constants.TILE_SIZE - 112, // posY on canvas to draw
+            //     40, // sizeW to draw on canvas
+            //     84 // sizeH to draw on canvas
+            // )
+            // ctx.restore();
         // }
     }
 }
