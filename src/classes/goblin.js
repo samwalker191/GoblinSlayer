@@ -55,7 +55,6 @@ class Goblin extends Entity {
         if (this.state === 'MOVING_UP') {
             
                 if (Math.ceil(this.pos.row) === this.destination.row) {
-                    debugger
                     this.pos.row = this.destination.row;
                     this.currentLevel.board[this.oldPos.row][this.oldPos.col] = 0;
                     this.state = 'IDLE';

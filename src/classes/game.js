@@ -78,6 +78,7 @@ class Game {
             this.goblins.forEach((goblin, idx) => {
                 if (this.player.attack(goblin)) {
                     this.goblins.splice(idx, 1);
+                    this.currentLevel.board[goblin.pos.row][goblin.pos.col] = 0;
                     this.kills += 1;
                 }
             })
@@ -136,6 +137,7 @@ class Game {
                 case 38: // UpArrow
                     e.preventDefault();
                     if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                        this.swordAudio();
                         this.player.state = 'ATTACK_UP';
                         this.player.attacking = 100;
                         this.goblins.forEach(goblin => {
@@ -145,6 +147,7 @@ class Game {
                 case 37: // LeftArrow
                     e.preventDefault();
                     if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                        this.swordAudio();
                         this.player.state = 'ATTACK_LEFT';
                         this.player.attacking = 100;
                         this.goblins.forEach(goblin => {
@@ -154,6 +157,7 @@ class Game {
                 case 40: // DownArrow
                     e.preventDefault();
                     if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                        this.swordAudio();
                         this.player.state = 'ATTACK_DOWN';
                         this.player.attacking = 100;
                         this.goblins.forEach(goblin => {
@@ -163,6 +167,7 @@ class Game {
                 case 39: // RightArrow
                     e.preventDefault();
                     if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                        this.swordAudio();                    
                         this.player.state = 'ATTACK_RIGHT';
                         this.player.attacking = 100;
                         this.goblins.forEach(goblin => {
@@ -183,6 +188,11 @@ class Game {
 
     drawEntities() {
         this.allObjects().forEach(obj => obj.draw(this.currentLevel));
+    }
+
+    swordAudio() {
+        let sound = document.getElementById("sword-slash");
+        sound.play();
     }
 }
 

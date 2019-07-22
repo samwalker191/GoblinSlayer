@@ -13,7 +13,7 @@ const findPath = (board, pathStart, pathEnd) => {
     let distanceFunction = manhattanDistance;
 
     const validTile = (col, row) => {
-        return ((board[row] !== null) && (board[row][col] !== null) && (board[row][col] <= walkableTileValue));
+        return ((board[row] !== null) && (board[row][col] !== null) && ((board[row][col] <= walkableTileValue) && board[row][col] !== -2));
     };
 
     const Neighbours = (col, row) => {
