@@ -57,6 +57,18 @@ class Game {
         let goblin4 = new Goblin({ col: 9, row: 7 }, this.currentLevel, this.animateCanvas, this.player.pos);
         this.goblins.push(goblin1, goblin2, goblin3, goblin4);
     }
+    
+    updateBoard() {
+        if (Number.isInteger(this.player.pos.row) && Number.isInteger(this.player.pos.col)) {
+            this.currentLevel.board[this.player.pos.row][this.player.pos.col] = -1;
+        }
+
+        this.goblins.forEach(goblin => {
+            if (Number.isInteger(goblin.pos.row) && Number.isInteger(goblin.pos.col)) {
+                this.currentLevel.board[goblin.pos.row][goblin.pos.col] = -2;
+            }
+        })
+    }
 
     step(timeDelta) {
         console.log(this.currentLevel.board);
@@ -74,6 +86,7 @@ class Game {
             obj.move(timeDelta);
         })
         this.drawEntities();
+        this.updateBoard();
     }
 
     bindKeyListeners() {
@@ -84,7 +97,9 @@ class Game {
                         this.player.state = 'MOVING_UP';
                         this.player.destination = { col: this.player.pos.col, row: this.player.pos.row - 1 };
                         this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
-                        this.goblins.forEach(goblin => goblin.state = 'MOVING');
+                        this.goblins.forEach(goblin => {
+                            goblin.state = 'MOVING';
+                        });
                     }
                     break;
                 case 65: // A
@@ -92,7 +107,10 @@ class Game {
                         this.player.state = 'MOVING_LEFT';
                         this.player.destination = { col: this.player.pos.col - 1, row: this.player.pos.row }; 
                         this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
-                        this.goblins.forEach(goblin => goblin.state = 'MOVING');
+                        this.goblins.forEach(goblin => {
+                            
+                            goblin.state = 'MOVING';
+                        });                    
                     }
                     break;
                 case 83: // S
@@ -100,7 +118,9 @@ class Game {
                         this.player.state = 'MOVING_DOWN';
                         this.player.destination = { col: this.player.pos.col, row: this.player.pos.row + 1 };   
                         this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
-                        this.goblins.forEach(goblin => goblin.state = 'MOVING');
+                        this.goblins.forEach(goblin => {
+                            goblin.state = 'MOVING';
+                        });                    
                     }
                     break;
                 case 68: // D
@@ -108,7 +128,9 @@ class Game {
                         this.player.state = 'MOVING_RIGHT';
                         this.player.destination = { col: this.player.pos.col + 1, row: this.player.pos.row };    
                         this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
-                        this.goblins.forEach(goblin => goblin.state = 'MOVING');
+                        this.goblins.forEach(goblin => {
+                            goblin.state = 'MOVING';
+                        });                    
                     }
                     break;
                 case 38: // UpArrow
@@ -116,28 +138,36 @@ class Game {
                     if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'ATTACK_UP';
                         this.player.attacking = 100;
-                        this.goblins.forEach(goblin => goblin.state = 'MOVING');
+                        this.goblins.forEach(goblin => {
+                            goblin.state = 'MOVING';
+                        });                    
                     }
                 case 37: // LeftArrow
                     e.preventDefault();
                     if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'ATTACK_LEFT';
                         this.player.attacking = 100;
-                        this.goblins.forEach(goblin => goblin.state = 'MOVING');
+                        this.goblins.forEach(goblin => {
+                            goblin.state = 'MOVING';
+                        });                    
                     }
                 case 40: // DownArrow
                     e.preventDefault();
                     if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'ATTACK_DOWN';
                         this.player.attacking = 100;
-                        this.goblins.forEach(goblin => goblin.state = 'MOVING');
+                        this.goblins.forEach(goblin => {
+                            goblin.state = 'MOVING';
+                        });                    
                     }
                 case 39: // RightArrow
                     e.preventDefault();
                     if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
                         this.player.state = 'ATTACK_RIGHT';
                         this.player.attacking = 100;
-                        this.goblins.forEach(goblin => goblin.state = 'MOVING');
+                        this.goblins.forEach(goblin => {
+                            goblin.state = 'MOVING';
+                        });                    
                     }
                 default:
                     break;

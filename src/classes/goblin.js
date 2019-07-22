@@ -31,12 +31,17 @@ class Goblin extends Entity {
             )[1];
         } else if (this.state === 'MOVING') {
             if (this.destination.row === Math.ceil(this.pos.row) - 1) {
+                
+                this.oldPos = { col: Math.floor(this.pos.col), row: Math.floor(this.pos.row) };
                 this.state = 'MOVING_UP';
             } else if (this.destination.col === this.pos.col - 1) {
+                this.oldPos = { col: Math.floor(this.pos.col), row: Math.floor(this.pos.row) };
                 this.state = 'MOVING_LEFT';
             } else if (this.destination.row === this.pos.row + 1) {
+                this.oldPos = { col: Math.floor(this.pos.col), row: Math.floor(this.pos.row) };
                 this.state = "MOVING_DOWN";
             } else if (this.destination.col === this.pos.col + 1) {
+                this.oldPos = { col: Math.floor(this.pos.col), row: Math.floor(this.pos.row) };
                 this.state = "MOVING_RIGHT";
             } else {
                 this.state = 'IDLE';
@@ -45,13 +50,14 @@ class Goblin extends Entity {
         
     }
 
-
     move(timeDelta) {
         this.setMoveDirection();
         if (this.state === 'MOVING_UP') {
             
                 if (Math.ceil(this.pos.row) === this.destination.row) {
+                    debugger
                     this.pos.row = this.destination.row;
+                    this.currentLevel.board[this.oldPos.row][this.oldPos.col] = 0;
                     this.state = 'IDLE';
                     return;
                 } else {
@@ -61,6 +67,7 @@ class Goblin extends Entity {
             
                 if (Math.ceil(this.pos.col) === this.destination.col) {
                     this.pos.col = this.destination.col;
+                    this.currentLevel.board[this.oldPos.row][this.oldPos.col] = 0;
                     this.state = 'IDLE';
                     return;
                 } else {
@@ -70,6 +77,7 @@ class Goblin extends Entity {
             
                 if (Math.floor(this.pos.row) === this.destination.row) {
                     this.pos.row = this.destination.row;
+                    this.currentLevel.board[this.oldPos.row][this.oldPos.col] = 0;
                     this.state = 'IDLE';
                     return;
                 } else {
@@ -79,6 +87,7 @@ class Goblin extends Entity {
             
                 if (Math.floor(this.pos.col) === this.destination.col) {
                     this.pos.col = this.destination.col;
+                    this.currentLevel.board[this.oldPos.row][this.oldPos.col] = 0;
                     this.state = 'IDLE';
                     return;
                 } else {

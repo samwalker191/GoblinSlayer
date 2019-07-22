@@ -45,6 +45,24 @@ class LevelOne {
                             this.tileSize //canvas height
                         );
                         break;
+                    case -1:
+                        ctx.drawImage(
+                            img, 16, 64, 16, 16,
+                            j * this.tileSize, // canvas x
+                            i * this.tileSize, // canvas y
+                            this.tileSize, //canvas width
+                            this.tileSize //canvas height
+                        );
+                        break;
+                    case -2:
+                        ctx.drawImage(
+                            img, 16, 64, 16, 16,
+                            j * this.tileSize, // canvas x
+                            i * this.tileSize, // canvas y
+                            this.tileSize, //canvas width
+                            this.tileSize //canvas height
+                        );
+                        break;
                     case 1:
                         ctx.drawImage(
                             img,
