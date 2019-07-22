@@ -35,6 +35,17 @@ class Game {
         return [].concat(this.goblins);
     }
 
+    resolveCollisions() {
+        for (let i = 0; i < this.goblins.length; i++) {
+            for (let j = i+1; j < this.goblins.length; j++) {
+                if ((this.goblins[i].pos.col === this.goblins[j].pos.col) && (this.goblins[i].pos.row === this.goblins[j].pos.row)) {
+                    // this.goblins.splice(i, 1);
+                    
+                }
+            }
+        }
+    }
+
     allOccupiedTiles() {
         let occupiedTiles = [];
         occupiedTiles.push(this.player.pos);
@@ -73,11 +84,12 @@ class Game {
     }
 
     increaseDifficulty() {
-        this.limit = Math.round(this.kills / 2);
+        this.limit = Math.ceil(this.kills / 2.5);
     }
 
     step(timeDelta) {
         this.aniCtx.clearRect(0, 0, 5000, 5000);
+        this.resolveCollisions();
         if (this.player.state.includes('ATTACK')) {
             this.player.drawAttack();            
             this.goblins.forEach((goblin, idx) => {
