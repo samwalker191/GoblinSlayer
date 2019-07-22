@@ -3,14 +3,13 @@ const Util = require('../util/game_util');
 const LevelOne = require('../util/levels/level1');
 const Player = require('./player');
 const Goblin = require('./goblin');
-const Entity = require('./entity');
 const spriteSheet = require('../assets/images/spritesheet.png');
 
-const FPS = 60;
 class Game {
     constructor(boardCanvas, animateCanvas, attackCanvas, levels) {
         this.levels = levels
         this.kills = 0;
+        this.limit = 1;
         this.currentLevel = levels[0];
         this.boardCanvas = boardCanvas;
         this.animateCanvas = animateCanvas;
@@ -47,15 +46,18 @@ class Game {
 
     randomPos() {
         let pos = { col: Util.randomInt(1, 9), row: Util.randomInt(2, 8) };
-
+        this.allOccupiedTiles().forEach(tile => {
+            while (pos.col === tile.col && pos.row === tile.row) {
+                pos = { col: Util.randomInt(1, 9), row: Util.randomInt(2, 8) };
+            }
+        })
+        return pos;
     }
 
-    addGoblin() {
-        let goblin1 = new Goblin({ col: 9, row: 8 }, this.currentLevel, this.animateCanvas, this.player.pos);
-        let goblin2 = new Goblin({ col: 1, row: 8 }, this.currentLevel, this.animateCanvas, this.player.pos);
-        let goblin3 = new Goblin({ col: 2, row: 8 }, this.currentLevel, this.animateCanvas, this.player.pos);
-        let goblin4 = new Goblin({ col: 9, row: 7 }, this.currentLevel, this.animateCanvas, this.player.pos);
-        this.goblins.push(goblin1, goblin2, goblin3, goblin4);
+    addGoblins() {
+        while (this.goblins.length < this.limit) {
+            this.goblins.push(new Goblin(this.randomPos(), this.currentLevel, this.animateCanvas, this.player.pos));
+        }
     }
     
     updateBoard() {
@@ -70,8 +72,11 @@ class Game {
         })
     }
 
+    increaseDifficulty() {
+        this.limit = Math.round(this.kills / 2);
+    }
+
     step(timeDelta) {
-        console.log(this.currentLevel.board);
         this.aniCtx.clearRect(0, 0, 5000, 5000);
         if (this.player.state.includes('ATTACK')) {
             this.player.drawAttack();            
@@ -86,8 +91,12 @@ class Game {
         this.allObjects().forEach(obj => {
             obj.move(timeDelta);
         })
+        if (this.goblins.length === 0) {
+            this.addGoblins();
+        }
         this.drawEntities();
         this.updateBoard();
+        this.increaseDifficulty();
     }
 
     bindKeyListeners() {
@@ -190,7 +199,7 @@ class Game {
         this.allObjects().forEach(obj => obj.draw(this.currentLevel));
     }
 
-    swordAudio() {
+    swordAudio() { //“Sound effects obtained from https://www.zapsplat.com“
         let sound = document.getElementById("sword-slash");
         sound.play();
     }

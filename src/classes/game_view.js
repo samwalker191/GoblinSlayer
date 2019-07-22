@@ -6,7 +6,6 @@ class GameView {
     start() {
         console.log('starting game');
         this.game.bindKeyListeners();
-        this.game.addGoblin();
         this.lastTime = 0;
         requestAnimationFrame(this.animate.bind(this));
     }
