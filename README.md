@@ -26,3 +26,7 @@ The goal of the game is to maneuver yourself around the board while keeping cont
  * Day 2: Finish movement logic, get player attack to work, get enemies to move when player inputs
  * Day 3: Finish enemy AI, style board and entities
  * Day 4: Finish styling, add animations
+
+
+## Credits
+Sound effects obtained from https://www.zapsplat.com
