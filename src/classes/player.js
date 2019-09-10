@@ -116,7 +116,7 @@ class Player extends Entity {
         }
     }
 
-    draw(level) {
+    draw() {
         this.playerSprite.update();
         if (this.state === "IDLE") {
             this.playerSprite.render(
@@ -155,14 +155,6 @@ class Player extends Entity {
                 64
             );
         }
-        // ctx1.drawImage(
-        //     img, 128, 68, 16, 28,
-        //     this.pos.col * Constants.TILE_SIZE,
-        //     this.pos.row * Constants.TILE_SIZE - 64,
-        //     this.size.w,
-        //     this.size.h
-        // )
-
     }
 
     drawAttack() {
@@ -209,28 +201,6 @@ class Player extends Entity {
             this.attackSprite.frameIndex = 0;
             ctx.clearRect(0, 0, 5000, 5000);
         }
-        // this.state = 'IDLE';
-            // ctx.mozImageSmoothingEnabled = false;
-            // ctx.webkitImageSmoothingEnabled = false;
-            // ctx.msImageSmoothingEnabled = false;
-            // ctx.imageSmoothingEnabled = false;
-            // ctx.save();
-            // ctx.translate(this.pos.col * Constants.TILE_SIZE, this.pos.row * Constants.TILE_SIZE);
-            // ctx.rotate(90 * Math.PI / 180);
-            // ctx.translate(-this.pos.col * Constants.TILE_SIZE, -this.pos.row * Constants.TILE_SIZE);
-            // ctx.drawImage(
-            //     this.img,
-            //     323, // sheetPosX
-            //     26, // sheetPosY
-            //     10, // spriteSizeW
-            //     21, // spriteSizeH
-            //     this.pos.col * Constants.TILE_SIZE, // posX on canvas to draw 
-            //     this.pos.row * Constants.TILE_SIZE - 112, // posY on canvas to draw
-            //     40, // sizeW to draw on canvas
-            //     84 // sizeH to draw on canvas
-            // )
-            // ctx.restore();
-        // }
     }
 }
 
