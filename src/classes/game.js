@@ -24,7 +24,7 @@ class Game {
         this.goblins = [];
         this.img = new Image();
         this.img.src = spriteSheet;
-        this.drawBoard(this.levels[0]);
+        ;
     }    
 
     allObjects() {
@@ -201,9 +201,9 @@ class Game {
     }
 
     drawBoard(level) {
-        window.onload = () => {
+        // window.onload = () => {
             level.drawLevel(this.boardCanvas);
-        }
+        // }
     }
 
     drawEntities() {

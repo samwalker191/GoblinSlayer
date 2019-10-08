@@ -4,9 +4,9 @@ class GameView {
     }
 
     start() {
-        console.log('starting game');
         this.game.bindKeyListeners();
         this.lastTime = 0;
+        this.game.drawBoard(this.game.levels[0]);
         requestAnimationFrame(this.animate.bind(this));
     }
 

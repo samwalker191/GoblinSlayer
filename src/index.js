@@ -9,8 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const attackCanvas = document.getElementById('attack-canvas');
     const level1 = new LevelOne();
     let levels = [level1];
-    const game = new Game(boardCanvas, animateCanvas, attackCanvas, levels);
-    const gameView = new GameView(game)
-    gameView.start();
-    // new GameView(game, ctx).start();
+    
+    setTimeout(() => {
+        const header = document.getElementsByTagName('header')[0];
+        header.classList.add('active');
+        const game = new Game(boardCanvas, animateCanvas, attackCanvas, levels);
+        const gameView = new GameView(game)
+        setTimeout(() => {
+            gameView.start()
+        }, 1000);
+    }, 500);
 });

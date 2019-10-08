@@ -36,5 +36,19 @@ canvas {
 header {
     font-family: BreatheFire;
     color: white;
-    font-size: 48px;
+    font-size: 60px;
+    margin-top: 4vh;
+}
+
+header::after {
+    display: block;
+    content: '';
+    border-top: 2px solid white;
+    transform: scaleX(0);
+    transition: transform 600ms ease-in-out;
+    width: 99%;
+}
+
+.active::after {
+    transform: scale(1);
 }
