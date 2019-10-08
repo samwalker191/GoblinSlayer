@@ -16,7 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const game = new Game(boardCanvas, animateCanvas, attackCanvas, levels);
         const gameView = new GameView(game)
         setTimeout(() => {
-            gameView.start()
+            gameView.start();
+            const gameContainer = document.getElementsByClassName('game-container')[0];
+            gameContainer.classList.remove('game-container');
+            gameContainer.classList.add('game-container-active');
         }, 1000);
     }, 500);
 });

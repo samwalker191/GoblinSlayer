@@ -8,6 +8,15 @@ body {
 .game-container {
     position: relative;
     width: 49vw;
+    transform: scaleX(0);
+    transition: transform 600ms ease-in-out;
+}
+
+.game-container-active {
+    transform: scaleX(1);
+    position: relative;
+    width: 49vw;
+    transition: transform 600ms ease-in-out;
 }
 
 canvas {
