@@ -1,17 +1,19 @@
 body {
     background: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .game-container {
-    width: 50%;
-    margin: 100px auto;
     position: relative;
+    width: 49vw;
 }
 
 canvas {
     position: absolute;
-    top: 10%;
-    left: 15%;
+    /* top: 10%; */
+    /* left: 15%; */
 }
 
 #board-canvas {
@@ -24,4 +26,15 @@ canvas {
 
 #attack-canvas {
     z-index: 3;
+}
+
+@font-face {
+    font-family: BreatheFire;
+    src: url("../fonts/BreatheFire.otf") format("opentype");
+}
+
+header {
+    font-family: BreatheFire;
+    color: white;
+    font-size: 48px;
 }
