@@ -7,6 +7,9 @@ class GameView {
         this.game.bindKeyListeners();
         this.lastTime = 0;
         this.game.drawBoard(this.game.levels[0]);
+        const gameContainer = document.getElementsByClassName('game-container')[0];
+        gameContainer.classList.remove('game-container');
+        gameContainer.classList.add('game-container-active');
         requestAnimationFrame(this.animate.bind(this));
     }
 

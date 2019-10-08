@@ -9,17 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const attackCanvas = document.getElementById('attack-canvas');
     const level1 = new LevelOne();
     let levels = [level1];
+    const game = new Game(boardCanvas, animateCanvas, attackCanvas, levels);
+    const gameView = new GameView(game)
     
     setTimeout(() => {
         const header = document.getElementsByTagName('header')[0];
+        const ul = document.getElementsByTagName('ul')[0];
         header.classList.add('active');
-        const game = new Game(boardCanvas, animateCanvas, attackCanvas, levels);
-        const gameView = new GameView(game)
-        setTimeout(() => {
-            gameView.start();
-            const gameContainer = document.getElementsByClassName('game-container')[0];
-            gameContainer.classList.remove('game-container');
-            gameContainer.classList.add('game-container-active');
-        }, 1000);
+        ul.classList.add('active');
+        
     }, 500);
 });

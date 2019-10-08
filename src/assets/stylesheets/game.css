@@ -1,8 +1,15 @@
+@font-face {
+    font-family: BreatheFire;
+    src: url("../fonts/BreatheFire.otf") format("opentype");
+}
+
 body {
     background: black;
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: BreatheFire;
+    color: white;
 }
 
 .game-container {
@@ -37,15 +44,8 @@ canvas {
     z-index: 3;
 }
 
-@font-face {
-    font-family: BreatheFire;
-    src: url("../fonts/BreatheFire.otf") format("opentype");
-}
-
 header {
-    font-family: BreatheFire;
-    color: white;
-    font-size: 60px;
+    font-size: 6em;
     margin-top: 4vh;
 }
 
@@ -58,6 +58,36 @@ header::after {
     width: 99%;
 }
 
+ul {
+    font-size: 3em;
+    margin-top: 8vh;
+}
+
+li {
+    display: inline-block;
+}
+
+li:last-child {
+    margin-top: 4vh;
+}
+
+li:hover {
+    cursor: pointer;
+}
+
+li::after {
+    display: block;
+    content: '';
+    border-top: 2px solid white;
+    transform: scaleX(0);
+    transition: transform 200ms ease-in-out;
+    width: 99%;
+}
+
+li:hover::after {
+    transform: scaleX(1);
+}
+
 .active::after {
-    transform: scale(1);
+    transform: scaleX(1);
 }
