@@ -11,12 +11,20 @@ document.addEventListener("DOMContentLoaded", () => {
     let levels = [level1];
     const game = new Game(boardCanvas, animateCanvas, attackCanvas, levels);
     const gameView = new GameView(game)
-    
+    const startButton = document.getElementById('start-btn');
+    startButton.addEventListener('click', () => {
+        gameView.start();
+    })
+    const instructionsButton = document.getElementById('instructions-btn');
+    instructionsButton.addEventListener('click', () => {
+        let menu = document.getElementsByTagName('ul')[0];
+        menu.classList.add('hidden');
+        let instructions = document.getElementsByClassName('instructions')[0];
+        instructions.classList.remove('animate-expand');
+    })
     setTimeout(() => {
         const header = document.getElementsByTagName('header')[0];
-        const ul = document.getElementsByTagName('ul')[0];
         header.classList.add('active');
-        ul.classList.add('active');
         
     }, 500);
 });

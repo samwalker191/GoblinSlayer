@@ -16,20 +16,17 @@ body {
     position: relative;
     width: 49vw;
     transform: scaleX(0);
-    transition: transform 600ms ease-in-out;
 }
 
 .game-container-active {
     transform: scaleX(1);
     position: relative;
     width: 49vw;
-    transition: transform 600ms ease-in-out;
+    transition: transform 300ms ease-in-out;
 }
 
 canvas {
     position: absolute;
-    /* top: 10%; */
-    /* left: 15%; */
 }
 
 #board-canvas {
@@ -91,3 +88,32 @@ li:hover::after {
 .active::after {
     transform: scaleX(1);
 }
+
+.instructions {
+    border: 1px solid white;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    padding: 0 4vw;
+    margin-top: 10vh;
+    position: relative;
+    transform: scaleX(1);
+    transition: transform 300ms ease-in-out;
+}
+
+.instructions p {
+    font-size: 2.5em;
+    margin: 3vh 0;
+}
+
+.animate-expand {
+    transform: scaleX(0);
+}
+
+.hidden {
+    display: none;
+}
+            
