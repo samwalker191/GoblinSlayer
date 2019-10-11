@@ -46,6 +46,10 @@ header {
     margin-top: 4vh;
 }
 
+header:hover {
+    cursor: default;
+}
+
 header::after {
     display: block;
     content: '';
