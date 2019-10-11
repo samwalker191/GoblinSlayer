@@ -102,7 +102,7 @@ li:hover::after {
     align-items: center;
     height: 40vh;
     padding: 0 4vw;
-    margin-top: 10vh;
+    margin-top: 8vh;
     margin-bottom: 5vh;
     position: relative;
     transform: scaleX(1);
