@@ -3,8 +3,6 @@ const LevelOne = require("./util/levels/level1");
 const GameView = require("./classes/game_view");
 const whichTransitionEvent = require('./util/transition_detect_util');
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
     const boardCanvas = document.getElementById('board-canvas');
     const animateCanvas = document.getElementById('animate-canvas');
