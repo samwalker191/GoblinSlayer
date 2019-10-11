@@ -7,6 +7,22 @@
     </head>
 
     <body>
+        <header>Goblin Slayer</header>
+        <ul class='menu not-game'>
+            <li id='start-btn'>Start</li><br>
+            <li id='instructions-btn'>Instructions</li>
+        </ul>
+        <article class='instructions animate-expand not-game'>
+            <p>W, A, S, D - Move your knight!</p>
+            <p>Arrow Keys - Attack the goblins!</p>
+            <p>Goblins only take an action when you do. Make sure they don't reach you!</p>
+        </article>
+        <button class='animate-expand not-game'>Go back</button>
+        <article class='game-story animate-expand not-game'>
+            <p>You, a noble knight, have fallen into a dungeon with no clear means of escape.</p>
+            <p>As you compose yourself, you notice goblins begin to surround you!</p>
+            <p>Can you survive the onslaught of goblins???</p>
+        </article>
         <div class="game-container">
             <canvas id="board-canvas"></canvas>
             <canvas id="animate-canvas"></canvas>

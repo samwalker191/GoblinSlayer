@@ -24,7 +24,7 @@ class Game {
         this.goblins = [];
         this.img = new Image();
         this.img.src = spriteSheet;
-        this.drawBoard(this.levels[0]);
+        ;
     }    
 
     allObjects() {
@@ -35,16 +35,15 @@ class Game {
         return [].concat(this.goblins);
     }
 
-    resolveCollisions() {
-        for (let i = 0; i < this.goblins.length; i++) {
-            for (let j = i+1; j < this.goblins.length; j++) {
-                if ((this.goblins[i].pos.col === this.goblins[j].pos.col) && (this.goblins[i].pos.row === this.goblins[j].pos.row)) {
-                    // this.goblins.splice(i, 1);
-                    
-                }
-            }
-        }
-    }
+    // resolveCollisions() {
+    //     for (let i = 0; i < this.goblins.length; i++) {
+    //         for (let j = i+1; j < this.goblins.length; j++) {
+    //             if ((this.goblins[i].pos.col === this.goblins[j].pos.col) && (this.goblins[i].pos.row === this.goblins[j].pos.row)) {
+    //                 this.goblins.splice(i, 1);
+    //             }
+    //         }
+    //     }
+    // }
 
     allOccupiedTiles() {
         let occupiedTiles = [];
@@ -89,16 +88,16 @@ class Game {
 
     step(timeDelta) {
         this.aniCtx.clearRect(0, 0, 5000, 5000);
-        this.resolveCollisions();
         if (this.player.state.includes('ATTACK')) {
             this.player.drawAttack();            
             this.goblins.forEach((goblin, idx) => {
                 if (this.player.attack(goblin)) {
-                    this.goblins.splice(idx, 1);
+                    this.goblins[idx] = '';
                     this.currentLevel.board[goblin.pos.row][goblin.pos.col] = 0;
                     this.kills += 1;
                 }
             })
+            this.goblins = this.goblins.filter(Boolean);
         }
         this.allObjects().forEach(obj => {
             obj.move(timeDelta);
@@ -202,9 +201,9 @@ class Game {
     }
 
     drawBoard(level) {
-        window.onload = () => {
+        // window.onload = () => {
             level.drawLevel(this.boardCanvas);
-        }
+        // }
     }
 
     drawEntities() {

@@ -1,17 +1,32 @@
+@font-face {
+    font-family: BreatheFire;
+    src: url("../fonts/BreatheFire.otf") format("opentype");
+}
+
 body {
     background: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: BreatheFire;
+    color: white;
 }
 
 .game-container {
-    width: 50%;
-    margin: 100px auto;
     position: relative;
+    width: 49vw;
+    transform: scaleX(0);
+}
+
+.game-container-active {
+    transform: scaleX(1);
+    position: relative;
+    width: 49vw;
+    transition: transform 250ms ease-in-out;
 }
 
 canvas {
     position: absolute;
-    top: 10%;
-    left: 15%;
 }
 
 #board-canvas {
@@ -25,3 +40,108 @@ canvas {
 #attack-canvas {
     z-index: 3;
 }
+
+header {
+    font-size: 6em;
+    margin-top: 4vh;
+}
+
+header:hover {
+    cursor: default;
+}
+
+header::after {
+    display: block;
+    content: '';
+    border-top: 2px solid white;
+    transform: scaleX(0);
+    transition: transform 600ms ease-in-out;
+    width: 99%;
+}
+
+ul {
+    font-size: 3em;
+    margin-top: 8vh;
+}
+
+li {
+    display: inline-block;
+}
+
+li:last-child {
+    margin-top: 4vh;
+}
+
+li:hover {
+    cursor: pointer;
+}
+
+li::after {
+    display: block;
+    content: '';
+    border-top: 2px solid white;
+    transform: scaleX(0);
+    transition: transform 200ms ease-in-out;
+    width: 99%;
+}
+
+li:hover::after {
+    transform: scaleX(1);
+}
+
+.active::after {
+    transform: scaleX(1);
+}
+
+.instructions {
+    border: 1px solid white;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    padding: 0 4vw;
+    margin-top: 10vh;
+    margin-bottom: 5vh;
+    position: relative;
+    transform: scaleX(1);
+    transition: transform 250ms ease-in-out;
+}
+
+.instructions p {
+    font-size: 2.5em;
+    margin: 3vh 0;
+}
+
+button {
+    font-size: 2em;
+    transform: scaleX(1);
+    transition: transform 250ms ease-in-out;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+button::after {
+    display: block;
+    content: '';
+    border-top: 2px solid white;
+    transform: scaleX(0);
+    transition: transform 200ms ease-in-out;
+    width: 99%;
+}
+
+button:hover::after {
+    transform: scaleX(1);
+}
+
+.animate-expand {
+    transform: scaleX(0);
+}
+
+.hidden {
+    display: none;
+}
+            
