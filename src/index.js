@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const menu = document.getElementsByTagName('ul')[0];
     const goBackButton = document.getElementsByTagName('button')[0];
     let transitionEvent;
+    instructions.classList.remove('hidden');
+    goBackButton.classList.remove('hidden');
 
     const transitionFunc = () => {
         menu.classList.remove('hidden');
