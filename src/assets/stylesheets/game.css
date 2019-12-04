@@ -114,6 +114,27 @@ li:hover::after {
     margin: 3vh 0;
 }
 
+.game-story {
+    border: 1px solid white;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    padding: 0 4vw;
+    margin-top: 8vh;
+    margin-bottom: 5vh;
+    position: relative;
+    transform: scaleX(1);
+    transition: transform 250ms ease-in-out;
+}
+
+.game-story p {
+    font-size: 2.5em;
+    margin: 3vh 0;
+}
+
 button {
     font-size: 2em;
     transform: scaleX(1);

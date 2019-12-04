@@ -13,12 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const gameView = new GameView(game)
 
     const startButton = document.getElementById('start-btn');
+    // startButton.addEventListener('click', () => {
+    //     gameView.start();
+    // })
     startButton.addEventListener('click', () => {
-        gameView.start();
+        menu.classList.add('hidden');
+        instructions.classList.add('hidden');
+        gameStory.classList.remove('animate-expand');
     })
 
     const instructionsButton = document.getElementById('instructions-btn');
     const instructions = document.getElementsByClassName('instructions')[0];
+    const gameStory = document.getElementsByClassName('game-story')[0];
     // instructions.classList.remove('hidden');
     const menu = document.getElementsByTagName('ul')[0];
     const goBackButton = document.getElementsByTagName('button')[0];
@@ -51,6 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const header = document.getElementsByTagName('header')[0];
         header.classList.add('active');
         
-    }, 400);
-    
+    }, 500);
+
 });
