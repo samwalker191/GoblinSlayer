@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const instructionsButton = document.getElementById('instructions-btn');
     const instructions = document.getElementsByClassName('instructions')[0];
+    // instructions.classList.remove('hidden');
     const menu = document.getElementsByTagName('ul')[0];
     const goBackButton = document.getElementsByTagName('button')[0];
     let transitionEvent;
@@ -51,4 +52,5 @@ document.addEventListener("DOMContentLoaded", () => {
         header.classList.add('active');
         
     }, 400);
+    
 });
