@@ -22,29 +22,53 @@ class GameView {
         let cont = document.getElementsByClassName('cont')[0];
         let kills = document.getElementById('kills');
         let transitionEvent;
-        
         kills.innerHTML = `Goblins Slewn: ${this.game.kills}`;
-        const transitionFunc = () => {
+
+        const gameOverFadeOut = (e) => {
+            e.preventDefault();
+
             this.newGame();
             this.game.bindKeyListeners();
             this.pause = false;
-            document.removeEventListener('keydown', transitionFunc);
+
+            gameOver.classList.add('hidden');
+            // gameOver.classList.remove('hidden');
+            cont.classList.add('hidden');
+            cont.classList.add('animate-fade');
+            // cont.classList.remove('hidden');
+            kills.classList.add('hidden');
+            kills.classList.add('animate-fade');
+            // kills.classList.remove('hidden');
+            
+            document.removeEventListener('keydown', gameOverFadeOut);
+        }
+        const transitionFunc = () => {
+            // setTimeout(() => {
+                cont.classList.remove('animate-fade');
+                document.addEventListener('keydown', gameOverFadeOut)
+                gameOver.removeEventListener(transitionEvent, transitionFunc);
+            // }, 400);
         }
         const ded = () => {
+            if (Array.from(gameOver.classList).includes('hidden')) {
+                gameOver.classList.remove('hidden');
+                gameOver.classList.add('animate-fade');
+                cont.classList.remove('hidden');
+                cont.classList.add('animate-fade');
+                kills.classList.remove('hidden');
+                kills.classList.add('animate-fade');
+            } else {
+                gameOver.classList.remove('animate-fade');
+                kills.classList.remove('animate-fade');
+            }
 
-            gameOver.classList.remove('animate-fade');
-            kills.classList.remove('animate-fade');
             transitionEvent = whichTransitionEvent();
 
             if (transitionEvent) {
-                gameOver.addEventListener(transitionEvent, () => {
-                    setTimeout(() => {
-                        cont.classList.remove('animate-fade');
-                        document.addEventListener('keydown', transitionFunc)
-                    }, 400);
-                });
+                gameOver.addEventListener(transitionEvent, transitionFunc);
             } 
-        }
+        };
+
         ded();
     }
 
@@ -60,6 +84,7 @@ class GameView {
     gameOver() {
         this.pause = true;
         this.restart();
+        this.resetClasses();
     }
 
     animate(time) {
