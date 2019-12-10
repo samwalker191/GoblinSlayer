@@ -20,11 +20,10 @@ class Game {
         this.attackCanvas.height = this.currentLevel.tileSize * this.currentLevel.rows;
         this.aniCtx = this.animateCanvas.getContext('2d');
         this.attackCtx = this.attackCanvas.getContext('2d');
-        this.player = new Player({ col: 1, row: 2 }, this.currentLevel, this.animateCanvas, this.attackCanvas);
+        this.player = new Player({ col: 5, row: 5 }, this.currentLevel, this.animateCanvas, this.attackCanvas);
         this.goblins = [];
         this.img = new Image();
         this.img.src = spriteSheet;
-        ;
     }    
 
     allObjects() {
@@ -52,6 +51,26 @@ class Game {
             occupiedTiles.push(goblin.pos);
         })
         return occupiedTiles;
+    }
+
+    reset() {
+        this.goblins = [];
+        this.player.pos = {col: 5, row: 5};
+        this.kills = 0;
+        this.limit = 1;
+    }
+
+    checkGameOver() {
+        let playerPosX = this.player.pos.col;
+        let playerPosY = this.player.pos.row;
+        for (let idx = 0; idx < this.goblins.length; idx++) {
+            let goblinPosX = this.goblins[idx].pos.col;
+            let goblinPosY = this.goblins[idx].pos.row;
+            if (goblinPosX === playerPosX && goblinPosY === playerPosY) {
+                return true;
+            }
+        }
+        return false;
     }
 
     randomPos() {
@@ -88,6 +107,7 @@ class Game {
 
     step(timeDelta) {
         this.aniCtx.clearRect(0, 0, 5000, 5000);
+        
         if (this.player.state.includes('ATTACK')) {
             this.player.drawAttack();            
             this.goblins.forEach((goblin, idx) => {

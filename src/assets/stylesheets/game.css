@@ -30,15 +30,15 @@ canvas {
 }
 
 #board-canvas {
-    z-index: 1;
+    z-index: 4;
 }
 
 #animate-canvas {
-    z-index: 2;
+    z-index: 5;
 }
 
 #attack-canvas {
-    z-index: 3;
+    z-index: 6;
 }
 
 header {
@@ -66,6 +66,7 @@ ul {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    z-index: 1;
 }
 
 li {
@@ -114,6 +115,10 @@ li:hover::after {
     margin: 3vh 0;
 }
 
+.instructions:hover {
+    cursor: default;
+}
+
 .game-story {
     border: 1px solid white;
     border-radius: 4px;
@@ -128,6 +133,10 @@ li:hover::after {
     position: relative;
     transform: scaleX(1);
     transition: transform 250ms ease-in-out;
+}
+
+.game-story:hover {
+    cursor: default;
 }
 
 .game-story p {
@@ -156,6 +165,53 @@ button::after {
 
 button:hover::after {
     transform: scaleX(1);
+}
+
+.game-over {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 34vh;
+    z-index: 2;
+    opacity: 1;
+    font-size: 6.5em;
+    background: black;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    width: 100vw;
+    height: 24vh;
+    transition: opacity 3000ms ease-in-out;
+}
+
+.game-over:hover {
+    cursor: default;
+}
+
+#kills {
+    font-size: .4em;
+}
+
+.cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 60vh;
+    z-index: 2;
+    opacity: 1;
+    font-size: 2em;
+    text-shadow: 6px 6px 6px black;
+    transition: opacity 1000ms ease-in-out;
+}
+
+.cont:hover {
+    cursor: default;
+}
+
+.animate-fade {
+    opacity: 0; 
 }
 
 .animate-expand {
