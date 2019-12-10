@@ -15,6 +15,9 @@ class GameView {
     }
 
     restart() {
+        let gameOver = document.getElementsByClassName('game-over')[0];
+        gameOver.classList.remove('animate-fade');
+        
         this.game.bindKeyListeners();
         this.game.reset();
     }
@@ -25,7 +28,6 @@ class GameView {
         let attackCanvas = document.getElementById('attack-canvas');
         let level1 = new LevelOne();
         let levels = [level1];
-        debugger
         this.game = new Game(boardCanvas, animateCanvas, attackCanvas, levels);
         this.restart();
     }
