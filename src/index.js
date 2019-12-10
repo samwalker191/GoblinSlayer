@@ -11,15 +11,20 @@ document.addEventListener("DOMContentLoaded", () => {
     let levels = [level1];
     const game = new Game(boardCanvas, animateCanvas, attackCanvas, levels);
     const gameView = new GameView(game)
-
+    const goBack = document.getElementsByClassName('go-back')[0];
+    const playBtn = document.getElementsByClassName('play-btn')[0];
     const startButton = document.getElementById('start-btn');
-    // startButton.addEventListener('click', () => {
-    //     gameView.start();
-    // })
+
+    playBtn.addEventListener('click', () => {
+        gameView.start();
+    })
+    
     startButton.addEventListener('click', () => {
         menu.classList.add('hidden');
         instructions.classList.add('hidden');
+        goBack.classList.add('hidden');
         gameStory.classList.remove('animate-expand');
+        playBtn.classList.remove('animate-expand');
     })
 
     const instructionsButton = document.getElementById('instructions-btn');

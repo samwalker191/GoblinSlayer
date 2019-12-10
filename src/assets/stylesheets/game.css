@@ -136,7 +136,7 @@ li:hover::after {
 }
 
 button {
-    font-size: 2em;
+    font-size: 3em;
     transform: scaleX(1);
     transition: transform 250ms ease-in-out;
 }
