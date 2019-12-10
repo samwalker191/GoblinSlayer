@@ -25,9 +25,11 @@
             <p>Can you survive the onslaught of goblins???</p>
         </article>
         <button class='play-btn animate-expand not-game'>Start</button>
-        <div class='game-over animate-fade'>
+        <div class='game-over animate-fade hidden'>
             <span>YOU DED</span>
+            <span id='kills'></span>
         </div>
+        <span class='cont animate-fade'>Press [ any ] key to retry</span>
         <div class="game-container">
             <canvas id="board-canvas"></canvas>
             <canvas id="animate-canvas"></canvas>
