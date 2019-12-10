@@ -1,3 +1,6 @@
+const LevelOne = require("../util/levels/level1");
+const Game = require("./game");
+
 class GameView {
     constructor(game) {
         this.game = game;
@@ -11,9 +14,28 @@ class GameView {
         requestAnimationFrame(this.animate.bind(this));
     }
 
+    restart() {
+        this.game.bindKeyListeners();
+        this.game.reset();
+    }
+
+    gameOver() {
+        let boardCanvas = document.getElementById('board-canvas');
+        let animateCanvas = document.getElementById('animate-canvas');
+        let attackCanvas = document.getElementById('attack-canvas');
+        let level1 = new LevelOne();
+        let levels = [level1];
+        debugger
+        this.game = new Game(boardCanvas, animateCanvas, attackCanvas, levels);
+        this.restart();
+    }
+
     animate(time) {
         requestAnimationFrame(this.animate.bind(this));
         const timeDelta = time - this.lastTime;
+        if (this.game.checkGameOver()) {
+            this.gameOver();
+        }
         this.game.step(timeDelta);
         this.lastTime = time;
     }
