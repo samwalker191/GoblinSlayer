@@ -1,7 +1,7 @@
-# GridLock
+# Goblin Slayer
 
 ## Overview
-GridLock is a grid based game where player actions dictate game time. Enemies will only move when the player moves/attacks.
+Goblin Slayer is a grid based game where player actions dictate game time. Enemies will only move when the player moves/attacks.
 The goal of the game is to maneuver yourself around the board while keeping continually spawning enemies at bay. 
 
 ## MVPs
