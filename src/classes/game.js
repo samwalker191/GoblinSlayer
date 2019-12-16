@@ -34,16 +34,6 @@ class Game {
         return [].concat(this.goblins);
     }
 
-    // resolveCollisions() {
-    //     for (let i = 0; i < this.goblins.length; i++) {
-    //         for (let j = i+1; j < this.goblins.length; j++) {
-    //             if ((this.goblins[i].pos.col === this.goblins[j].pos.col) && (this.goblins[i].pos.row === this.goblins[j].pos.row)) {
-    //                 this.goblins.splice(i, 1);
-    //             }
-    //         }
-    //     }
-    // }
-
     allOccupiedTiles() {
         let occupiedTiles = [];
         occupiedTiles.push(this.player.pos);

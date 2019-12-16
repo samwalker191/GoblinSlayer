@@ -95,11 +95,7 @@ class Goblin extends Entity {
         }
     }
 
-    draw(level) {
-        
-        // this.canvas.width = level.tileSize * level.cols;
-        // this.canvas.height = level.tileSize * level.rows;
-
+    draw() {
         this.goblinSprite.update();
         if (this.state === "IDLE") {
             this.goblinSprite.render(
@@ -126,14 +122,6 @@ class Goblin extends Entity {
                 16
             )
         }
-        // ctx1.drawImage(
-        //     img, 128, 68, 16, 28,
-        //     this.pos.col * Constants.TILE_SIZE,
-        //     this.pos.row * Constants.TILE_SIZE - 64,
-        //     this.size.w,
-        //     this.size.h
-        // )
-
     }
 }
 
