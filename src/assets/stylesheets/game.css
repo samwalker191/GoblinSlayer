@@ -18,15 +18,17 @@ body {
 }
 
 .game-container {
+    margin: 0 auto;
     position: relative;
-    width: 49vw;
+    width: 704px;
     transform: scaleX(0);
 }
 
 .game-container-active {
+    margin: 0 auto;
     transform: scaleX(1);
     position: relative;
-    width: 49vw;
+    width: 704px;
     transition: transform 250ms ease-in-out;
 }
 
@@ -48,7 +50,7 @@ canvas {
 
 header {
     font-size: 6em;
-    margin-top: 1vh;
+    margin-top: 4vh;
 }
 
 header:hover {

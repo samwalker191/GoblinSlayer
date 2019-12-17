@@ -42,6 +42,7 @@ class GameView {
                 cont.classList.remove('animate-fade');
                 document.addEventListener('keydown', gameOverFadeOut)
                 gameOver.removeEventListener(transitionEvent, transitionFunc);
+                this.game.bindKeyListeners();
         }
         const ded = () => {
             if (Array.from(gameOver.classList).includes('hidden')) {
@@ -77,6 +78,7 @@ class GameView {
 
     gameOver() {
         this.pause = true;
+        this.game.removeKeyListeners();
         this.restart();
     }
 
