@@ -70,13 +70,7 @@ class Game {
         let posArr = Util.outerPos[idx];
         let pos = { col: posArr[0], row: posArr[1] }
         return pos;
-        // let pos = { col: Util.randomInt(1, 9), row: Util.randomInt(2, 8) };
-        // this.allOccupiedTiles().forEach(tile => {
-        //     while (pos.col === tile.col && pos.row === tile.row) {
-        //         pos = { col: Util.randomInt(1, 9), row: Util.randomInt(2, 8) };
-        //     }
-        // })
-        // return pos;
+       
     }
 
     addGoblins() {
@@ -85,9 +79,7 @@ class Game {
                 this.goblins.push(new Goblin(this.randomPos(), this.currentLevel, this.animateCanvas, this.player.pos));
             }
         }
-        // while (this.goblins.length < this.limit) {
-            // this.goblins.push(new Goblin(this.randomPos(), this.currentLevel, this.animateCanvas, this.player.pos));
-        // }
+       
     }
     
     updateBoard() {
@@ -111,7 +103,6 @@ class Game {
                 this.spawnAmount += 1;
             }
         }
-        // this.limit = Math.ceil(this.kills / 2.5);
     }
 
     step(timeDelta) {
@@ -131,9 +122,7 @@ class Game {
         this.allObjects().forEach(obj => {
             obj.move(timeDelta);
         })
-        // if (this.goblins.length === 0) {
-        //     this.addGoblins();
-        // }
+     
         if (this.spawnCounter === 0) {
             this.addGoblins();
             this.spawnCounter = 3;
@@ -141,7 +130,6 @@ class Game {
         }
         this.drawEntities();
         this.updateBoard();
-        // this.increaseDifficulty();
     }
 
     bindKeyListeners() {
@@ -243,9 +231,7 @@ class Game {
     }
 
     drawBoard(level) {
-        // window.onload = () => {
-            level.drawLevel(this.boardCanvas);
-        // }
+        level.drawLevel(this.boardCanvas);
     }
 
     drawEntities() {

@@ -78,7 +78,6 @@ class GameView {
     gameOver() {
         this.pause = true;
         this.restart();
-        this.resetClasses();
     }
 
     animate(time) {
