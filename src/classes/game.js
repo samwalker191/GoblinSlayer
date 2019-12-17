@@ -10,6 +10,8 @@ class Game {
         this.levels = levels
         this.kills = 0;
         this.limit = 1;
+        this.spawnAmount = 1;
+        this.spawnCounter = 0;
         this.currentLevel = levels[0];
         this.boardCanvas = boardCanvas;
         this.animateCanvas = animateCanvas;
@@ -78,9 +80,14 @@ class Game {
     }
 
     addGoblins() {
-        while (this.goblins.length < this.limit) {
-            this.goblins.push(new Goblin(this.randomPos(), this.currentLevel, this.animateCanvas, this.player.pos));
+        if (this.goblins.length < this.limit) {
+            for (let i = 0; i < this.spawnAmount; i++) {
+                this.goblins.push(new Goblin(this.randomPos(), this.currentLevel, this.animateCanvas, this.player.pos));
+            }
         }
+        // while (this.goblins.length < this.limit) {
+            // this.goblins.push(new Goblin(this.randomPos(), this.currentLevel, this.animateCanvas, this.player.pos));
+        // }
     }
     
     updateBoard() {
@@ -96,7 +103,15 @@ class Game {
     }
 
     increaseDifficulty() {
-        this.limit = Math.ceil(this.kills / 2.5);
+        if (this.kills > 0) {
+            if (this.kills % 4 === 0) {
+                this.limit += 1;
+            }
+            if (this.kills % 10 === 0) {
+                this.spawnAmount += 1;
+            }
+        }
+        // this.limit = Math.ceil(this.kills / 2.5);
     }
 
     step(timeDelta) {
@@ -116,12 +131,17 @@ class Game {
         this.allObjects().forEach(obj => {
             obj.move(timeDelta);
         })
-        if (this.goblins.length === 0) {
+        // if (this.goblins.length === 0) {
+        //     this.addGoblins();
+        // }
+        if (this.spawnCounter === 0) {
             this.addGoblins();
+            this.spawnCounter = 3;
+            this.increaseDifficulty();
         }
         this.drawEntities();
         this.updateBoard();
-        this.increaseDifficulty();
+        // this.increaseDifficulty();
     }
 
     bindKeyListeners() {
@@ -135,6 +155,7 @@ class Game {
                         this.goblins.forEach(goblin => {
                             goblin.state = 'MOVING';
                         });
+                        this.spawnCounter -= 1;
                     }
                     break;
                 case 65: // A
@@ -145,7 +166,8 @@ class Game {
                         this.goblins.forEach(goblin => {
                             
                             goblin.state = 'MOVING';
-                        });                    
+                        });          
+                        this.spawnCounter -= 1;
                     }
                     break;
                 case 83: // S
@@ -155,7 +177,8 @@ class Game {
                         this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
                         this.goblins.forEach(goblin => {
                             goblin.state = 'MOVING';
-                        });                    
+                        });           
+                        this.spawnCounter -= 1;
                     }
                     break;
                 case 68: // D
@@ -165,7 +188,8 @@ class Game {
                         this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
                         this.goblins.forEach(goblin => {
                             goblin.state = 'MOVING';
-                        });                    
+                        });         
+                        this.spawnCounter -= 1;
                     }
                     break;
                 case 38: // UpArrow
@@ -176,7 +200,8 @@ class Game {
                         this.player.attacking = 100;
                         this.goblins.forEach(goblin => {
                             goblin.state = 'MOVING';
-                        });                    
+                        });       
+                        this.spawnCounter -= 1;
                     }
                 case 37: // LeftArrow
                     e.preventDefault();
@@ -186,7 +211,8 @@ class Game {
                         this.player.attacking = 100;
                         this.goblins.forEach(goblin => {
                             goblin.state = 'MOVING';
-                        });                    
+                        });           
+                        this.spawnCounter -= 1;
                     }
                 case 40: // DownArrow
                     e.preventDefault();
@@ -196,7 +222,8 @@ class Game {
                         this.player.attacking = 100;
                         this.goblins.forEach(goblin => {
                             goblin.state = 'MOVING';
-                        });                    
+                        });           
+                        this.spawnCounter -= 1;
                     }
                 case 39: // RightArrow
                     e.preventDefault();
@@ -206,7 +233,8 @@ class Game {
                         this.player.attacking = 100;
                         this.goblins.forEach(goblin => {
                             goblin.state = 'MOVING';
-                        });                    
+                        });         
+                        this.spawnCounter -= 1;
                     }
                 default:
                     break;

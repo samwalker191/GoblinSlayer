@@ -43,7 +43,6 @@ class Player extends Entity {
 
     attack(enemy) {
         this.setTileToAttack();
-        console.log(this.pos);
         return (enemy.pos.col === this.tileToAttack.col && enemy.pos.row === this.tileToAttack.row);
     }
 
