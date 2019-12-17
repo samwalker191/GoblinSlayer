@@ -27,6 +27,7 @@ class Game {
         this.img = new Image();
         this.img.src = spriteSheet;
         this.keyBinds = this.keyBinds.bind(this);
+        this.increase = true;
     }    
 
     allObjects() {
@@ -101,6 +102,7 @@ class Game {
         if (this.kills > 0) {
             if (this.kills % 6 === 0) {
                 this.limit += 1;
+                this.increase = false;
             }
             if (this.kills % 12 === 0) {
                 this.spawnAmount += 1;
@@ -118,6 +120,7 @@ class Game {
                     this.goblins[idx] = '';
                     this.currentLevel.board[goblin.pos.row][goblin.pos.col] = 0;
                     this.kills += 1;
+                    this.increase = true;
                 }
             })
             this.goblins = this.goblins.filter(Boolean);
@@ -126,13 +129,13 @@ class Game {
             obj.move(timeDelta);
         })
      
-        if (this.spawnCounter === 0) {
+        if (this.spawnCounter <= 0) {
             this.spawnCounter = 3;
             this.addGoblins();
-            this.increaseDifficulty();
-        } else if (this.spawnCounter < 0) {
-            this.spawnCounter = 0;
-        }
+            if (this.increase) {
+                this.increaseDifficulty();
+            }
+        } 
         this.drawEntities();
         this.updateBoard();
     }
