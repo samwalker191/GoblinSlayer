@@ -64,13 +64,17 @@ class Game {
     }
 
     randomPos() {
-        let pos = { col: Util.randomInt(1, 9), row: Util.randomInt(2, 8) };
-        this.allOccupiedTiles().forEach(tile => {
-            while (pos.col === tile.col && pos.row === tile.row) {
-                pos = { col: Util.randomInt(1, 9), row: Util.randomInt(2, 8) };
-            }
-        })
+        let idx = Util.randomInt(0, Util.outerPos.length); 
+        let posArr = Util.outerPos[idx];
+        let pos = { col: posArr[0], row: posArr[1] }
         return pos;
+        // let pos = { col: Util.randomInt(1, 9), row: Util.randomInt(2, 8) };
+        // this.allOccupiedTiles().forEach(tile => {
+        //     while (pos.col === tile.col && pos.row === tile.row) {
+        //         pos = { col: Util.randomInt(1, 9), row: Util.randomInt(2, 8) };
+        //     }
+        // })
+        // return pos;
     }
 
     addGoblins() {
