@@ -12,6 +12,11 @@ body {
     color: white;
 }
 
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
 .game-container {
     position: relative;
     width: 49vw;
@@ -43,7 +48,7 @@ canvas {
 
 header {
     font-size: 6em;
-    margin-top: 4vh;
+    margin-top: 1vh;
 }
 
 header:hover {

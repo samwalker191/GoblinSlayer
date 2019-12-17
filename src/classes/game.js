@@ -79,7 +79,6 @@ class Game {
                 this.goblins.push(new Goblin(this.randomPos(), this.currentLevel, this.animateCanvas, this.player.pos));
             }
         }
-       
     }
     
     updateBoard() {
@@ -96,10 +95,10 @@ class Game {
 
     increaseDifficulty() {
         if (this.kills > 0) {
-            if (this.kills % 4 === 0) {
+            if (this.kills % 6 === 0) {
                 this.limit += 1;
             }
-            if (this.kills % 10 === 0) {
+            if (this.kills % 12 === 0) {
                 this.spawnAmount += 1;
             }
         }
