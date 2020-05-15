@@ -228,4 +228,7 @@ button:hover::after {
 .hidden {
     display: none;
 }
-            
+          
+.go-back {
+    z-index: 5;
+}
