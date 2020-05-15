@@ -2,7 +2,6 @@ const Game = require("./game");
 const LevelOne = require("../util/levels/level1");
 const whichTransitionEvent = require('../util/transition_detect_util');
 
-
 class GameView {
     constructor(game) {
         this.game = game;
@@ -22,7 +21,7 @@ class GameView {
         let cont = document.getElementsByClassName('cont')[0];
         let kills = document.getElementById('kills');
         let transitionEvent;
-        kills.innerHTML = `Goblins Slewn: ${this.game.kills}`;
+        kills.innerHTML = `Goblins Slain: ${this.game.kills}`;
 
         const gameOverFadeOut = (e) => {
             e.preventDefault();
@@ -32,22 +31,18 @@ class GameView {
             this.pause = false;
 
             gameOver.classList.add('hidden');
-            // gameOver.classList.remove('hidden');
             cont.classList.add('hidden');
             cont.classList.add('animate-fade');
-            // cont.classList.remove('hidden');
             kills.classList.add('hidden');
             kills.classList.add('animate-fade');
-            // kills.classList.remove('hidden');
             
             document.removeEventListener('keydown', gameOverFadeOut);
         }
         const transitionFunc = () => {
-            // setTimeout(() => {
                 cont.classList.remove('animate-fade');
                 document.addEventListener('keydown', gameOverFadeOut)
                 gameOver.removeEventListener(transitionEvent, transitionFunc);
-            // }, 400);
+                this.game.bindKeyListeners();
         }
         const ded = () => {
             if (Array.from(gameOver.classList).includes('hidden')) {
@@ -83,8 +78,8 @@ class GameView {
 
     gameOver() {
         this.pause = true;
+        this.game.removeKeyListeners();
         this.restart();
-        this.resetClasses();
     }
 
     animate(time) {

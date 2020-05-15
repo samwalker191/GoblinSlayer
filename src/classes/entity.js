@@ -1,7 +1,6 @@
 const Util = require('../util/game_util');
 const spriteSheet = require('../assets/images/spritesheet.png');
 
-
 class Entity {
     constructor(pos, currentLevel, canvas) {
         this.pos = pos;

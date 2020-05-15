@@ -36,7 +36,6 @@ class AttackSprite {
             this.ctx.translate((col * Constants.TILE_SIZE + 40 / 2), (row * Constants.TILE_SIZE + 84 * .285));
             this.ctx.rotate((this.rotateDegrees + (rotateBy * this.frameIndex)) * Math.PI / 180);
             this.ctx.translate(-(col * Constants.TILE_SIZE + 40 / 2),  -(row * Constants.TILE_SIZE + 84 * .285));
-            // this.ctx.fillRect(col * Constants.TILE_SIZE, row * Constants.TILE_SIZE, 40, 84);
             this.ctx.drawImage(
                 this.img,
                 sheetPosX,

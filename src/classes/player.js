@@ -30,7 +30,6 @@ class Player extends Entity {
     }
 
     setTileToAttack() {
-        // this.attacking = 4;
         if (this.state === 'ATTACK_UP') {
             this.tileToAttack = { col: this.pos.col, row: this.pos.row - 1 };
         } else if (this.state === 'ATTACK_LEFT') {
@@ -44,8 +43,6 @@ class Player extends Entity {
 
     attack(enemy) {
         this.setTileToAttack();
-        // this.drawAttack();
-        // this.state = 'IDLE';
         return (enemy.pos.col === this.tileToAttack.col && enemy.pos.row === this.tileToAttack.row);
     }
 

@@ -12,16 +12,23 @@ body {
     color: white;
 }
 
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
 .game-container {
+    margin: 0 auto;
     position: relative;
-    width: 49vw;
+    width: 704px;
     transform: scaleX(0);
 }
 
 .game-container-active {
+    margin: 0 auto;
     transform: scaleX(1);
     position: relative;
-    width: 49vw;
+    width: 704px;
     transition: transform 250ms ease-in-out;
 }
 

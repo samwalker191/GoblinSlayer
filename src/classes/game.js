@@ -10,6 +10,8 @@ class Game {
         this.levels = levels
         this.kills = 0;
         this.limit = 1;
+        this.spawnAmount = 1;
+        this.spawnCounter = 0;
         this.currentLevel = levels[0];
         this.boardCanvas = boardCanvas;
         this.animateCanvas = animateCanvas;
@@ -24,6 +26,8 @@ class Game {
         this.goblins = [];
         this.img = new Image();
         this.img.src = spriteSheet;
+        this.keyBinds = this.keyBinds.bind(this);
+        this.increase = true;
     }    
 
     allObjects() {
@@ -33,16 +37,6 @@ class Game {
     allEnemies() {
         return [].concat(this.goblins);
     }
-
-    // resolveCollisions() {
-    //     for (let i = 0; i < this.goblins.length; i++) {
-    //         for (let j = i+1; j < this.goblins.length; j++) {
-    //             if ((this.goblins[i].pos.col === this.goblins[j].pos.col) && (this.goblins[i].pos.row === this.goblins[j].pos.row)) {
-    //                 this.goblins.splice(i, 1);
-    //             }
-    //         }
-    //     }
-    // }
 
     allOccupiedTiles() {
         let occupiedTiles = [];
@@ -58,6 +52,9 @@ class Game {
         this.player.pos = {col: 5, row: 5};
         this.kills = 0;
         this.limit = 1;
+        this.spawnAmount = 1;
+        this.spawnCounter = 3;
+        this.addGoblins();
     }
 
     checkGameOver() {
@@ -74,18 +71,18 @@ class Game {
     }
 
     randomPos() {
-        let pos = { col: Util.randomInt(1, 9), row: Util.randomInt(2, 8) };
-        this.allOccupiedTiles().forEach(tile => {
-            while (pos.col === tile.col && pos.row === tile.row) {
-                pos = { col: Util.randomInt(1, 9), row: Util.randomInt(2, 8) };
-            }
-        })
+        let idx = Util.randomInt(0, Util.outerPos.length); 
+        let posArr = Util.outerPos[idx];
+        let pos = { col: posArr[0], row: posArr[1] }
         return pos;
+       
     }
 
     addGoblins() {
-        while (this.goblins.length < this.limit) {
-            this.goblins.push(new Goblin(this.randomPos(), this.currentLevel, this.animateCanvas, this.player.pos));
+        if (this.goblins.length < this.limit) {
+            for (let i = 0; i < this.spawnAmount; i++) {
+                this.goblins.push(new Goblin(this.randomPos(), this.currentLevel, this.animateCanvas, this.player.pos));
+            }
         }
     }
     
@@ -102,10 +99,18 @@ class Game {
     }
 
     increaseDifficulty() {
-        this.limit = Math.ceil(this.kills / 2.5);
+        if (this.kills > 0) {
+            if (this.kills % 6 === 0) {
+                this.limit += 1;
+                this.increase = false;
+            }
+            if (this.kills % 12 === 0) {
+                this.spawnAmount += 1;
+            }
+        }
     }
 
-    step(timeDelta) {
+    step(timeDelta) {      
         this.aniCtx.clearRect(0, 0, 5000, 5000);
         
         if (this.player.state.includes('ATTACK')) {
@@ -115,6 +120,7 @@ class Game {
                     this.goblins[idx] = '';
                     this.currentLevel.board[goblin.pos.row][goblin.pos.col] = 0;
                     this.kills += 1;
+                    this.increase = true;
                 }
             })
             this.goblins = this.goblins.filter(Boolean);
@@ -122,108 +128,125 @@ class Game {
         this.allObjects().forEach(obj => {
             obj.move(timeDelta);
         })
-        if (this.goblins.length === 0) {
+     
+        if (this.spawnCounter <= 0) {
+            this.spawnCounter = 3;
             this.addGoblins();
-        }
+            if (this.increase) {
+                this.increaseDifficulty();
+            }
+        } 
         this.drawEntities();
         this.updateBoard();
-        this.increaseDifficulty();
+    }
+
+    keyBinds(e) {
+        // console.log('pressed');
+        switch (e.keyCode) {
+            case 87: // W
+                if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                    this.player.state = 'MOVING_UP';
+                    this.player.destination = { col: this.player.pos.col, row: this.player.pos.row - 1 };
+                    this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
+                    this.goblins.forEach(goblin => {
+                        goblin.state = 'MOVING';
+                    });
+                    this.spawnCounter -= 1;
+                }
+                break;
+            case 65: // A
+                if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                    this.player.state = 'MOVING_LEFT';
+                    this.player.destination = { col: this.player.pos.col - 1, row: this.player.pos.row };
+                    this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
+                    this.goblins.forEach(goblin => {
+
+                        goblin.state = 'MOVING';
+                    });
+                    this.spawnCounter -= 1;
+                }
+                break;
+            case 83: // S
+                if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                    this.player.state = 'MOVING_DOWN';
+                    this.player.destination = { col: this.player.pos.col, row: this.player.pos.row + 1 };
+                    this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
+                    this.goblins.forEach(goblin => {
+                        goblin.state = 'MOVING';
+                    });
+                    this.spawnCounter -= 1;
+                }
+                break;
+            case 68: // D
+                if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                    this.player.state = 'MOVING_RIGHT';
+                    this.player.destination = { col: this.player.pos.col + 1, row: this.player.pos.row };
+                    this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
+                    this.goblins.forEach(goblin => {
+                        goblin.state = 'MOVING';
+                    });
+                    this.spawnCounter -= 1;
+                }
+                break;
+            case 38: // UpArrow
+                e.preventDefault();
+                if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                    this.swordAudio();
+                    this.player.state = 'ATTACK_UP';
+                    this.player.attacking = 100;
+                    this.goblins.forEach(goblin => {
+                        goblin.state = 'MOVING';
+                    });
+                    this.spawnCounter -= 1;
+                }
+            case 37: // LeftArrow
+                e.preventDefault();
+                if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                    this.swordAudio();
+                    this.player.state = 'ATTACK_LEFT';
+                    this.player.attacking = 100;
+                    this.goblins.forEach(goblin => {
+                        goblin.state = 'MOVING';
+                    });
+                    this.spawnCounter -= 1;
+                }
+            case 40: // DownArrow
+                e.preventDefault();
+                if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                    this.swordAudio();
+                    this.player.state = 'ATTACK_DOWN';
+                    this.player.attacking = 100;
+                    this.goblins.forEach(goblin => {
+                        goblin.state = 'MOVING';
+                    });
+                    this.spawnCounter -= 1;
+                }
+            case 39: // RightArrow
+                e.preventDefault();
+                if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
+                    this.swordAudio();
+                    this.player.state = 'ATTACK_RIGHT';
+                    this.player.attacking = 100;
+                    this.goblins.forEach(goblin => {
+                        goblin.state = 'MOVING';
+                    });
+                    this.spawnCounter -= 1;
+                }
+            default:
+                break;
+        }
     }
 
     bindKeyListeners() {
-        document.addEventListener("keydown", (e) => {
-            switch (e.keyCode) {
-                case 87: // W
-                    if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
-                        this.player.state = 'MOVING_UP';
-                        this.player.destination = { col: this.player.pos.col, row: this.player.pos.row - 1 };
-                        this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
-                        this.goblins.forEach(goblin => {
-                            goblin.state = 'MOVING';
-                        });
-                    }
-                    break;
-                case 65: // A
-                    if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
-                        this.player.state = 'MOVING_LEFT';
-                        this.player.destination = { col: this.player.pos.col - 1, row: this.player.pos.row }; 
-                        this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
-                        this.goblins.forEach(goblin => {
-                            
-                            goblin.state = 'MOVING';
-                        });                    
-                    }
-                    break;
-                case 83: // S
-                    if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
-                        this.player.state = 'MOVING_DOWN';
-                        this.player.destination = { col: this.player.pos.col, row: this.player.pos.row + 1 };   
-                        this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
-                        this.goblins.forEach(goblin => {
-                            goblin.state = 'MOVING';
-                        });                    
-                    }
-                    break;
-                case 68: // D
-                    if (this.player.state === 'IDLE' && this.goblins.every(goblin => goblin.state === 'IDLE')) {
-                        this.player.state = 'MOVING_RIGHT';
-                        this.player.destination = { col: this.player.pos.col + 1, row: this.player.pos.row };    
-                        this.player.oldPos = { col: this.player.pos.col, row: this.player.pos.row };
-                        this.goblins.forEach(goblin => {
-                            goblin.state = 'MOVING';
-                        });                    
-                    }
-                    break;
-                case 38: // UpArrow
-                    e.preventDefault();
-                    if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
-                        this.swordAudio();
-                        this.player.state = 'ATTACK_UP';
-                        this.player.attacking = 100;
-                        this.goblins.forEach(goblin => {
-                            goblin.state = 'MOVING';
-                        });                    
-                    }
-                case 37: // LeftArrow
-                    e.preventDefault();
-                    if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
-                        this.swordAudio();
-                        this.player.state = 'ATTACK_LEFT';
-                        this.player.attacking = 100;
-                        this.goblins.forEach(goblin => {
-                            goblin.state = 'MOVING';
-                        });                    
-                    }
-                case 40: // DownArrow
-                    e.preventDefault();
-                    if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
-                        this.swordAudio();
-                        this.player.state = 'ATTACK_DOWN';
-                        this.player.attacking = 100;
-                        this.goblins.forEach(goblin => {
-                            goblin.state = 'MOVING';
-                        });                    
-                    }
-                case 39: // RightArrow
-                    e.preventDefault();
-                    if (this.player.state === 'IDLE' && this.player.attacking <= 0 && this.goblins.every(goblin => goblin.state === 'IDLE')) {
-                        this.swordAudio();                    
-                        this.player.state = 'ATTACK_RIGHT';
-                        this.player.attacking = 100;
-                        this.goblins.forEach(goblin => {
-                            goblin.state = 'MOVING';
-                        });                    
-                    }
-                default:
-                    break;
-            }
-        })
+        document.addEventListener("keydown", this.keyBinds);
+    }
+
+    removeKeyListeners() {
+        document.removeEventListener("keydown", this.keyBinds);
     }
 
     drawBoard(level) {
-        // window.onload = () => {
-            level.drawLevel(this.boardCanvas);
-        // }
+        level.drawLevel(this.boardCanvas);
     }
 
     drawEntities() {
