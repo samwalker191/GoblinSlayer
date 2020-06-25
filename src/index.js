@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const goBack = document.getElementsByClassName('go-back')[0];
     const playBtn = document.getElementsByClassName('play-btn')[0];
     const startButton = document.getElementById('start-btn');
+    const music = document.getElementById('music');
 
     playBtn.addEventListener('click', () => {
         gameView.start();
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         goBack.classList.add('hidden');
         gameStory.classList.remove('animate-expand');
         playBtn.classList.remove('animate-expand');
+        music.play();
     })
 
     const instructionsButton = document.getElementById('instructions-btn');
