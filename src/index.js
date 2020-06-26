@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const playBtn = document.getElementsByClassName('play-btn')[0];
     const startButton = document.getElementById('start-btn');
     const music = document.getElementById('music');
+    const musicControls = document.getElementsByClassName('music-controls')[0];
+    const musicPlay = document.getElementById('music-play');
+    const musicPause = document.getElementById('music-pause');
 
     playBtn.addEventListener('click', () => {
         gameView.start();
@@ -26,7 +29,20 @@ document.addEventListener("DOMContentLoaded", () => {
         goBack.classList.add('hidden');
         gameStory.classList.remove('animate-expand');
         playBtn.classList.remove('animate-expand');
+        musicControls.classList.remove('hidden');
         music.play();
+    })
+
+    musicControls.addEventListener('click', () => {
+        if (!music.paused) {
+            music.pause();
+            musicPlay.classList.remove('hidden');
+            musicPause.classList.add('hidden');
+        } else {
+            music.play();
+            musicPause.classList.remove('hidden');
+            musicPlay.classList.add('hidden');
+        }
     })
 
     const instructionsButton = document.getElementById('instructions-btn');

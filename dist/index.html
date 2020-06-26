@@ -9,8 +9,12 @@
     </head>
 
     <body class='stop-scrolling'>
-        <header>Goblin Slayer</header> 
-        <i class="fa fa-play" style="font-size:36px;"></i>
+        <header>Goblin Slayer</header>
+        <div class='music-controls hidden'>
+            <span>Music</span>
+            <i id='music-play' class="fa fa-play hidden"></i>
+            <i id='music-pause' class="fa fa-pause"></i>
+        </div> 
         <audio 
             loop 
             id='music' 

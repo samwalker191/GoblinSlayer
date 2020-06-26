@@ -225,7 +225,27 @@ button:hover::after {
     transform: scaleX(0);
 }
 
+.music-controls {
+    font-size: 36px;
+    margin-top: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.music-controls i {
+    width: 30px;
+}
+
+.music-controls span {
+    padding-right: 10px;
+}
+
 .hidden {
+    display: none;
+}
+
+.hidden::before {
     display: none;
 }
             
