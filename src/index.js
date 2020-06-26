@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // create tool tip element
     const toolTip = document.createElement('div');
-    
+    toolTip.innerHTML = "Music will play when you click this";
+    toolTip.classList.add('tool-tip');
 
     playBtn.addEventListener('click', () => {
         gameView.start();
@@ -35,6 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
         playBtn.classList.remove('animate-expand');
         musicControls.classList.remove('hidden');
         music.play();
+    })
+
+    startButton.addEventListener('mouseover', () => {
+        startButton.parentNode.insertBefore(toolTip, startButton);
+    })
+
+    startButton.addEventListener('mouseout', () => {
+        toolTip.parentNode.removeChild(toolTip);
     })
 
     musicControls.addEventListener('click', () => {
