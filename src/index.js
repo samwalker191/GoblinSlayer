@@ -19,6 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const musicPlay = document.getElementById('music-play');
     const musicPause = document.getElementById('music-pause');
 
+    // create tool tip element
+    const toolTip = document.createElement('div');
+    
+
     playBtn.addEventListener('click', () => {
         gameView.start();
     })
