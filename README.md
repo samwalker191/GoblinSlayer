@@ -27,6 +27,6 @@ The goal of the game is to maneuver yourself around the board while keeping cont
  * Day 3: Finish enemy AI, style board and entities
  * Day 4: Finish styling, add animations
 
-
 ## Credits
 Sound effects obtained from https://www.zapsplat.com
+Music obtained from https://freemusicarchive.org/music/Komiku

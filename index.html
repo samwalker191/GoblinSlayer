@@ -2,6 +2,7 @@
     <head>
         <meta charset="utf-8">
         <title>Goblin Slayer</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="./src/assets/stylesheets/reset.css" />
         <link rel="stylesheet" type="text/css" href="./src/assets/stylesheets/game.css" />
         <script type="application/javascript" src="./main.js"></script>
@@ -9,27 +10,46 @@
 
     <body class='stop-scrolling'>
         <header>Goblin Slayer</header>
+        <div class='music-controls hidden'>
+            <span>Music</span>
+            <i id='music-play' class="hidden fa fa-play"></i>
+            <i id='music-pause' class="fa fa-pause"></i>
+        </div> 
+
+        <audio 
+            loop 
+            id='music' 
+            src='./src/assets/sounds/Komiku_-_07_-_Battle_of_Pogs.mp3' 
+        ></audio>
+
         <ul class='menu not-game'>
             <li id='start-btn'>Play</li><br>
             <li id='instructions-btn'>Instructions</li>
         </ul>
-        <article class='instructions animate-expand not-game hidden'>
+
+        <article class='instructions animate-expand not-game'>
             <p>W, A, S, D - Move your knight!</p>
             <p>Arrow Keys - Attack the goblins!</p>
             <p>Goblins only take an action when you do. Make sure they don't reach you!</p>
         </article>
+
         <button class='go-back animate-expand not-game'>Go back</button>
+
         <article class='game-story animate-expand not-game'>
             <p>You, a noble knight, have fallen into a dungeon with no clear means of escape.</p>
             <p>As you compose yourself, you notice goblins begin to surround you!</p>
             <p>Can you survive the onslaught of goblins???</p>
         </article>
+
         <button class='play-btn animate-expand not-game'>Start</button>
+
         <div class='game-over animate-fade hidden'>
             <span>YOU DIED</span>
             <span id='kills'></span>
         </div>
+
         <span class='cont animate-fade'>Press [ any ] key to retry</span>
+
         <div class="game-container">
             <canvas id="board-canvas"></canvas>
             <canvas id="animate-canvas"></canvas>

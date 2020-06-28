@@ -14,6 +14,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const goBack = document.getElementsByClassName('go-back')[0];
     const playBtn = document.getElementsByClassName('play-btn')[0];
     const startButton = document.getElementById('start-btn');
+    const music = document.getElementById('music');
+    const musicControls = document.getElementsByClassName('music-controls')[0];
+    const musicPlay = document.getElementById('music-play');
+    const musicPause = document.getElementById('music-pause');
+
+    // create tool tip element
+    const toolTip = document.createElement('div');
+    toolTip.innerHTML = "Music will play when you click this";
+    toolTip.classList.add('tool-tip');
 
     playBtn.addEventListener('click', () => {
         gameView.start();
@@ -25,6 +34,28 @@ document.addEventListener("DOMContentLoaded", () => {
         goBack.classList.add('hidden');
         gameStory.classList.remove('animate-expand');
         playBtn.classList.remove('animate-expand');
+        musicControls.classList.remove('hidden');
+        music.play();
+    })
+
+    startButton.addEventListener('mouseover', () => {
+        startButton.parentNode.insertBefore(toolTip, startButton);
+    })
+
+    startButton.addEventListener('mouseout', () => {
+        toolTip.parentNode.removeChild(toolTip);
+    })
+
+    musicControls.addEventListener('click', () => {
+        if (!music.paused) {
+            music.pause();
+            musicPlay.classList.remove('hidden');
+            musicPause.classList.add('hidden');
+        } else {
+            music.play();
+            musicPause.classList.remove('hidden');
+            musicPlay.classList.add('hidden');
+        }
     })
 
     const instructionsButton = document.getElementById('instructions-btn');
